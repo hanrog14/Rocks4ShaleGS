@@ -10,13 +10,14 @@ const setProducts = (products) => ({
 })
 
 // thunk
-// export const fetchProducts = () => {
-//     return async (dispatch) => {
-//         try{
-
-//         }
-//         catch(err) {
-
-//         }
-//     }
-// }
+export const fetchProducts = () => {
+    return async (dispatch) => {
+        try{
+            const response = await axios.get('/api/products')
+            dispatch(setProducts(response.data))
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+}
