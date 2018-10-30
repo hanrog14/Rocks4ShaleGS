@@ -11,7 +11,6 @@ class ProductList extends React.Component {
   }
 
   render() {
-      console.log('this is the props', this.props)
     return (
       <div>
           <h2>ALL PRODUCTS</h2>
