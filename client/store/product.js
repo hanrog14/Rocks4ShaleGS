@@ -1,5 +1,5 @@
 import axios from 'axios'
-import history from '../history'
+// import history from '../history'
 
 /**
  * ACTION TYPES
@@ -10,7 +10,7 @@ const SET_PRODUCTS = 'SET_PRODUCTS'
 /**
  * INITIAL STATE
  */
-const defaultProduct = { selectedProduct: {} }
+const defaultProduct = { products: [], selectedProduct: {} }
 
 /**
  * ACTION CREATORS
@@ -54,6 +54,8 @@ export default function(state = defaultProduct, action) {
       return { ...state, selectedProduct: action.product }
     // case REMOVE_PRODUCT_SINGLE:
     //   return defaultUser
+    case SET_PRODUCTS:
+      return {...state, products: action.products}
     default:
       return state
   }
