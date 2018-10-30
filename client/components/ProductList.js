@@ -3,17 +3,21 @@ import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
 
 class ProductList extends React.Component {
-//   constructor() {
-//     super()
-//   }
+  constructor(props) {
+    super(props)
+  }
+  componentDidMount() {
+   this.props.fetchAllProducts()
+  }
 
   render() {
+      console.log('this is the props', this.props)
     return (
       <div>
+          <h2>ALL PRODUCTS</h2>
         <table>
           <tbody>
-            <h2>ALL PRODUCTS</h2>
-            {this.state.products.map(eachProduct => (
+            {this.props.products.map(eachProduct => (
               <tr key={eachProduct.name}>
                 <td>
                   Name: {eachProduct.name}
@@ -30,7 +34,7 @@ class ProductList extends React.Component {
 }
 
 const mapStatetoProps = state => ({
-  products: state.products
+  products: state.product.products
 })
 
 const mapDispatchToProps = dispatch => ({
