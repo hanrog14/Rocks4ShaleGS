@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_PRODUCT_SINGLE = 'GET_PRODUCT_SINGLE'
+const SET_PRODUCTS = 'SET_PRODUCTS'
 // const REMOVE_PRODUCT_SINGLE = 'REMOVE_PRODUCT_SINGLE'
 
 /**
@@ -16,6 +17,10 @@ const defaultProduct = { selectedProduct: {} }
  * ACTION CREATORS
  */
 const getProduct = product => ({type: GET_PRODUCT_SINGLE, product})
+const setProducts = (products) => ({
+    type: SET_PRODUCTS,
+    products
+})
 // const removeUser = () => ({type: REMOVE_PRODUCT_SINGLE})
 
 /**
@@ -32,6 +37,17 @@ export const getSelectedProduct = (id) => async dispatch => {
     console.error(err)
   }
 }
+export const fetchProducts = () => {
+    return async (dispatch) => {
+        try{
+            const response = await axios.get('/api/products')
+            dispatch(setProducts(response.data))
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+}
 
 /**
  * REDUCER
@@ -46,3 +62,4 @@ export default function(state = defaultProduct, action) {
       return state
   }
 }
+
