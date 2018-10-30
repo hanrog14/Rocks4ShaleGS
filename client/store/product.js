@@ -6,7 +6,6 @@ import history from '../history'
  */
 const GET_PRODUCT_SINGLE = 'GET_PRODUCT_SINGLE'
 const SET_PRODUCTS = 'SET_PRODUCTS'
-// const REMOVE_PRODUCT_SINGLE = 'REMOVE_PRODUCT_SINGLE'
 
 /**
  * INITIAL STATE
@@ -21,13 +20,10 @@ const setProducts = (products) => ({
     type: SET_PRODUCTS,
     products
 })
-// const removeUser = () => ({type: REMOVE_PRODUCT_SINGLE})
 
 /**
  * THUNK CREATORS
  */
-
-
 export const getSelectedProduct = (id) => async dispatch => {
   try {
     const prod = await axios.get(`/product/${id}`)
