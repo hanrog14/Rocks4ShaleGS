@@ -26,7 +26,7 @@ const setProducts = (products) => ({
  */
 export const getSelectedProduct = (id) => async dispatch => {
   try {
-    const prod = await axios.get(`/product/${id}`)
+    const prod = await axios.get(`/api/products/${id}`)
     dispatch(getProduct(prod.data))
     // history.push('/something')
   } catch (err) {
