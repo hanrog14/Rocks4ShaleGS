@@ -19,3 +19,29 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.column {
+  float: center;
+  width: calc(100%/4);
+  height: auto;
+  padding-bottom: 3em
+}
+
+.column-image {
+  width: 250px;
+  height: auto
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.all-product-container {
+  max-width: 1200px;
+  padding: 4em;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}

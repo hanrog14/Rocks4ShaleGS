@@ -7,26 +7,29 @@ class ProductList extends React.Component {
     super(props)
   }
   componentDidMount() {
-   this.props.fetchAllProducts()
+    this.props.fetchAllProducts()
   }
 
   render() {
     return (
       <div>
-          <h2>ALL PRODUCTS</h2>
-        <table>
-          <tbody>
-            {this.props.products.map(eachProduct => (
-              <tr key={eachProduct.name}>
-                <td>
-                  Name: {eachProduct.name}
-                  <br />
-                  Description: {eachProduct.description}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <h2>ALL PRODUCTS</h2>
+      <div className="all-product-container">
+      <div className="row">
+
+        <br/>
+        {this.props.products.map(eachProduct => (
+          <div className="column" key={eachProduct.name}>
+            <img className="column-image" src={eachProduct.pictureUrl} />
+            <br />
+            Name: {eachProduct.name}
+            <br />
+            Price: ${eachProduct.price}
+            <br/>
+          </div>
+        ))}
+      </div>
+      </div>
       </div>
     )
   }
