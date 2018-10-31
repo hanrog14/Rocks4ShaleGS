@@ -20,6 +20,7 @@ class ProductList extends React.Component {
 
   clickHandler(event){
     event.preventDefault()
+    //console.log("click")
     this.props.addToCart(event.target.value)
   
   }
@@ -63,7 +64,7 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
-  // addToCart: (product) => dispatch(addProduct())
+  addToCart: (product) => dispatch(addProduct())
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(ProductList)
