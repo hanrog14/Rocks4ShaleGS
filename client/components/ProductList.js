@@ -1,36 +1,45 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
+import {NotFoundComponent} from './NotFoundComponent'
+import {Link} from 'react-router-dom'
+
+const possibleCategories = ["Miscellaneous", "Sedimentary", "Igneous", "Metamorphic", "all"];
 
 class ProductList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   componentDidMount() {
     this.props.fetchAllProducts()
   }
 
   render() {
+    const category = this.props.match.params.category;
+    let products = this.props.products;
+    if (category !== 'all') {
+      products = this.props.products.filter(prod => prod.category === category);
+    }
     return (
-      <div>
-    <h2>ALL PRODUCTS</h2>
-      <div className="all-product-container">
-      <div className="row">
+      possibleCategories.includes(category) ?
+        <div>
+          <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
+          <div className="all-product-container">
+            <div className="row">
 
-        <br/>
-        {this.props.products.map(eachProduct => (
-          <div className="column" key={eachProduct.name}>
-            <img className="column-image" src={eachProduct.pictureUrl} />
-            <br />
-            Name: {eachProduct.name}
-            <br />
-            Price: ${eachProduct.price}
-            <br/>
+              <br/>
+              {products.map(eachProduct => (
+                <div className="column" key={eachProduct.name}>
+                  <img className="column-image" src={eachProduct.pictureUrl} />
+                  <br />
+                  Name: <Link to={`../../products/${eachProduct.id}`}>{eachProduct.name}</Link>
+                  <br />
+                  Price: ${eachProduct.price}
+                  <br/>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-      </div>
-      </div>
+        </div> :
+        <NotFoundComponent />
     )
   }
 }

@@ -22,7 +22,10 @@ const Product = db.define('product', {
   },
   category: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isIn: [['Igneous', 'Sedimentary', 'Metamorphic', 'Miscellaneous']]
+    }
   },
   pictureUrl: {
     type: Sequelize.STRING,
