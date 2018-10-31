@@ -34,6 +34,8 @@ class ProductList extends React.Component {
                   <br />
                   Price: ${eachProduct.price}
                   <br/>
+                  {/* <button type="button" onClick={}> Add to Cart</button> */}
+                  <br />
                 </div>
               ))}
             </div>
