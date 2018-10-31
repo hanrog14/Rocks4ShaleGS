@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
+import {addItemToOrder} from '../store/order'
 import {NotFoundComponent} from './NotFoundComponent'
 import {Link} from 'react-router-dom'
 
@@ -16,6 +17,7 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllProducts()
+    this.props.addItemToOrder(1)
   }
 
   clickHandler(event){

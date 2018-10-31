@@ -2,9 +2,9 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  isFulfilled: {
+  isCart: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: true
   }
 
 })
