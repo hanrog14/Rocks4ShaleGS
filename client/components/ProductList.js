@@ -9,9 +9,22 @@ const possibleCategories = ["Miscellaneous", "Sedimentary", "Igneous", "Metamorp
 
 class ProductList extends React.Component {
 
+  constructor(props){
+    super(props)
+
+    this.clickHandler = this.clickHandler.bind(this)
+  }
+
   componentDidMount() {
     this.props.fetchAllProducts()
     this.props.addItemToOrder(1)
+  }
+
+  clickHandler(event){
+    event.preventDefault()
+    //console.log("click")
+    this.props.addToCart(event.target.value)
+  
   }
 
   render() {
@@ -36,6 +49,7 @@ class ProductList extends React.Component {
                   <br />
                   Price: ${eachProduct.price}
                   <br/>
+                  <button type= "button" onClick= {this.clickHandler}>Add to Cart</button>
                 </div>
               ))}
             </div>
@@ -52,7 +66,7 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
-  addItemToOrder: (id) => dispatch(addItemToOrder(id))
+  addToCart: (product) => dispatch(addProduct())
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(ProductList)

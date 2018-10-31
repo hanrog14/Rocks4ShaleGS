@@ -12,7 +12,8 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.DOUBLE,
+    //type: Sequelize.INTEGER,
     allowNull: false
   },
   inventory: {
@@ -30,6 +31,11 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false
   }
+  // hooks: {
+  //   afterCreate: (product) => {
+  //     product.price = parseFloat(product.price)
+  //   }
+  // }
 })
 
 module.exports = Product
