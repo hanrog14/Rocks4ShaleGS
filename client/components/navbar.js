@@ -8,6 +8,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1>BOILERMAKER</h1>
     <nav>
+      <Link to="/products/category/all">All</Link>
+      <Link to="/products/category/Igneous">Igneous</Link>
+      <Link to="/products/category/Metamorphic">Metamorphic</Link>
+      <Link to="/products/category/Sedimentary">Sedimentary</Link>
+      <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -19,11 +24,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/products/category/all">All</Link>
-          <Link to="/products/category/Igneous">Igneous</Link>
-          <Link to="/products/category/Metamorphic">Metamorphic</Link>
-          <Link to="/products/category/Sedimentary">Sedimentary</Link>
-          <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
