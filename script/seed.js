@@ -25,7 +25,7 @@ async function seed() {
 
     Product.create({name: 'Pumice', description: `A light-colored vesicular rock. It forms through very rapid solidification of a melt. The vesicular texture is a result of gas trapped in the melt at the time of solidification. This is a 10" by 12" slab.`, price: 4.20, inventory: 375, category: 'Igneous', pictureUrl: 'https://geology.com/rocks/pictures/pumice.jpg'}),
 
-    Product.create({name: 'Fire Opal', description: `This is sometimes found filling cavities in rhyolite. Long after the rhyolite has cooled, silica-rich ground water moves through the rock, sometimes depositing gems like opal, red beryl, topaz, jasper, or agate in the cavities of the rock. This is a 1" cube.`, price: 497.22, inventory: 8, category: 'Igneous', pictureUrl: 'https://geology.com/rocks/pictures/fire-opal.jpg'}),
+    Product.create({name: 'Fire Opal', description: `This is sometimes found filling cavities in rhyolite. Long after the rhyolite has cooled, silica-rich ground water moves through the rock, sometimes depositing gems like opal, red beryl, topaz, jasper, or agate in the cavities of the rock. This is a 1" cube.`, price: 497.22, inventory: 8, category: 'Igneous', pictureUrl: 'https://geology.com/gemstones/opal/fire-opal.jpg'}),
 
     Product.create({name: 'Gneiss', description: `A foliated metamorphic rock that has a banded appearance and is made up of granular mineral grains. It typically contains abundant quartz or feldspar minerals. This is a 10" by 12" slab.`, price: 4.25, inventory: 93, category: 'Metamorphic', pictureUrl: 'https://geology.com/rocks/pictures/gneiss.jpg'}),
 
