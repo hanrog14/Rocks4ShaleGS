@@ -9,6 +9,7 @@ class CartList extends React.Component {
 
     return (
         <div>
+          <h1>Cart:</h1>
           <ul>
             {arrayRender}
           </ul>

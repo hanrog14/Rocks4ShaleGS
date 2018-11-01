@@ -23,7 +23,6 @@ class ProductList extends React.Component {
 
   clickHandler(event){
     event.preventDefault()
-    //console.log("click")
     this.props.addToCart(event.target.value)
 
   }
@@ -36,6 +35,7 @@ class ProductList extends React.Component {
     }
     return (
       possibleCategories.includes(category) ?
+
         <div>
           <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
           <div className="all-product-container">
