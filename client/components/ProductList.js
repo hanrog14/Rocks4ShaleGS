@@ -43,7 +43,7 @@ class ProductList extends React.Component {
               <br/>
               {products.map(eachProduct => (
                 <div className="column" key={eachProduct.name}>
-                  <img className="column-image" src={eachProduct.pictureUrl} />
+                  <Link to={`../../products/${eachProduct.id}`}><img className="column-image" src={eachProduct.pictureUrl} /></Link>
                   <br />
                   Name: <Link to={`../../products/${eachProduct.id}`}>{eachProduct.name}</Link>
                   <br />

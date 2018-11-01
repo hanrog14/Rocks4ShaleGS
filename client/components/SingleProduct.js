@@ -20,6 +20,7 @@ class SingleProduct extends Component {
           <div>
             <h3>{this.props.product.name}</h3>
             <p>{this.props.product.description}</p>
+            <img className="column-image" src={this.props.product.pictureUrl} />
           </div> :
 
           <h3>Loading...</h3>
