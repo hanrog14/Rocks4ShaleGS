@@ -4,6 +4,7 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
+    req.session.cart = [];
     const user = await User.findOne({where: {email: req.body.email}})
     if (!user) {
       console.log('No such user found:', req.body.email)
@@ -39,7 +40,15 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
-  res.json(req.user)
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+  res.json({user: req.user, cart: req.session.cart})
+})
+
+router.get('/addToCart/:id', (req, res) => {
+  req.session.cart.push(req.params.id)
+  res.json(req.session.cart)
 })
 
 router.use('/google', require('./google'))

@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleProduct, ProductList} from './components'
+import {Login, Signup, UserHome, SingleProduct, ProductList, CreateProduct, UpdateProduct} from './components'
 import {me} from './store'
-
 /**
  * COMPONENT
  */
@@ -21,6 +20,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/products/create" component={CreateProduct} />
+        <Route path="/products/:id/update" component={UpdateProduct} />
         <Route path='/products/category/:category' component={ProductList} />
         <Route path="/products/:id" component={SingleProduct} />
         {isLoggedIn && (

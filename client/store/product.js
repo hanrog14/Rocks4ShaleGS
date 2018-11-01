@@ -6,6 +6,8 @@ import axios from 'axios'
  */
 const GET_PRODUCT_SINGLE = 'GET_PRODUCT_SINGLE'
 const SET_PRODUCTS = 'SET_PRODUCTS'
+const ADD_PRODUCT = 'ADD_PRODUCT'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -20,6 +22,8 @@ const setProducts = (products) => ({
     type: SET_PRODUCTS,
     products
 })
+const addProduct = product => ({type: ADD_PRODUCT, product})
+const gotUpdatedProduct = product => ({type: UPDATE_PRODUCT, product})
 
 /**
  * THUNK CREATORS
@@ -44,6 +48,25 @@ export const fetchProducts = () => {
         }
     }
 }
+export const getNewProduct = (productObj, history) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('/api/products', productObj)
+      dispatch(addProduct(response.data))
+      history.push('../category/all')
+    } catch(err) {console.log(err)}
+  }
+}
+
+export const updateProduct = (product, productId, history) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/products/${productId}`, product)
+      dispatch(gotUpdatedProduct(response.data))
+      history.push('../category/all')
+    } catch(err) {console.log(err)}
+  }
+}
 
 /**
  * REDUCER
@@ -52,6 +75,10 @@ export default function(state = defaultProduct, action) {
   switch (action.type) {
     case GET_PRODUCT_SINGLE:
       return { ...state, selectedProduct: action.product }
+    case ADD_PRODUCT:
+      return { ...state, products: [...state.products, action.product] }
+    case UPDATE_PRODUCT:
+      return {...state, products: [...state.products.filter(prod => prod !== action.product.id, action.product)]}
     // case REMOVE_PRODUCT_SINGLE:
     //   return defaultUser
     case SET_PRODUCTS:
