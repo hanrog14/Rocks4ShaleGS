@@ -26,7 +26,6 @@ const gotUpdatedProduct = product => ({type: UPDATE_PRODUCT, product})
  * THUNK CREATORS
  */
 
- console.log("history", history)
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
@@ -34,7 +33,7 @@ export const fetchProducts = () => {
       dispatch(setProducts(response.data))
     }
     catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }
@@ -51,10 +50,9 @@ export const getNewProduct = (productObj) => {
     try {
       const response = await axios.post('/api/products', productObj)
       dispatch(addProduct(response.data))
-      history.push('../category/all')
-      console.log("what's the history now", history)
+      history.push('/products/category/all')
     } catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }
@@ -65,9 +63,8 @@ export const updateProduct = (product, productId) => {
       const response = await axios.put(`/api/products/${productId}`, product)
       dispatch(gotUpdatedProduct(response.data))
       history.push('../category/all')
-      console.log("what's the updated history now", history)
     } catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }
