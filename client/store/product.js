@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -25,6 +25,8 @@ const gotUpdatedProduct = product => ({type: UPDATE_PRODUCT, product})
 /**
  * THUNK CREATORS
  */
+
+ console.log("history", history)
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
@@ -44,24 +46,26 @@ export const getSelectedProduct = (id) => async dispatch => {
     console.error(err)
   }
 }
-export const getNewProduct = (productObj, history) => {
+export const getNewProduct = (productObj) => {
   return async (dispatch) => {
     try {
       const response = await axios.post('/api/products', productObj)
       dispatch(addProduct(response.data))
       history.push('../category/all')
+      console.log("what's the history now", history)
     } catch(err) {
       console.log(err)
     }
   }
 }
 
-export const updateProduct = (product, productId, history) => {
+export const updateProduct = (product, productId) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(`/api/products/${productId}`, product)
       dispatch(gotUpdatedProduct(response.data))
       history.push('../category/all')
+      console.log("what's the updated history now", history)
     } catch(err) {
       console.log(err)
     }
