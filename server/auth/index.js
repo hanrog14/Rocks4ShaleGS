@@ -40,15 +40,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
-  if (!req.session.cart) {
-    req.session.cart = [];
-  }
-  res.json({user: req.user, cart: req.session.cart})
-})
-
-router.get('/addToCart/:id', (req, res) => {
-  req.session.cart.push(req.params.id)
-  res.json(req.session.cart)
+  res.json(req.user)
 })
 
 router.use('/google', require('./google'))
