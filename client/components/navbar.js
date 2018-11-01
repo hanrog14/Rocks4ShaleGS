@@ -4,35 +4,37 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>BOILERMAKER</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/products/category/all">All</Link>
-          <Link to="/products/category/Igneous">Igneous</Link>
-          <Link to="/products/category/Metamorphic">Metamorphic</Link>
-          <Link to="/products/category/Sedimentary">Sedimentary</Link>
-          <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const Navbar = ({handleClick, isLoggedIn}) => {
+  return (
+    <div>
+      <h1>BOILERMAKER</h1>
+      <nav>
+        <Link to="/products/category/all">All</Link>
+        <Link to="/products/category/Igneous">Igneous</Link>
+        <Link to="/products/category/Metamorphic">Metamorphic</Link>
+        <Link to="/products/category/Sedimentary">Sedimentary</Link>
+        <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
+        <Link to="/cart">Cart</Link>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
+  )
+}
 
 /**
  * CONTAINER

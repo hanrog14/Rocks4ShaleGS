@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
+import {addItemToOrder} from '../store/order'
+import {addToCart} from '../store/user'
 import {NotFoundComponent} from './NotFoundComponent'
 import {Link} from 'react-router-dom'
 
@@ -16,6 +18,7 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllProducts()
+    //this.props.addItemToOrder(1)
   }
 
   clickHandler(event){
@@ -36,18 +39,21 @@ class ProductList extends React.Component {
         <div>
           <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
           <div className="all-product-container">
+            {this.props.isAdmin && <Link to="../../products/create">Create new Product</Link>}
             <div className="row">
-
               <br/>
               {products.map(eachProduct => (
                 <div className="column" key={eachProduct.name}>
-                  <img className="column-image" src={eachProduct.pictureUrl} />
+                  <Link to={`../../products/${eachProduct.id}`}><img className="column-image" src={eachProduct.pictureUrl} /></Link>
                   <br />
                   Name: <Link to={`../../products/${eachProduct.id}`}>{eachProduct.name}</Link>
                   <br />
                   Price: ${eachProduct.price}
                   <br/>
-                  <button type= "button" onClick= {this.clickHandler}>Add to Cart</button>
+                  <button type="button" onClick={() => this.props.addToCart(eachProduct.id)}>Add To Cart</button>
+                  <br />
+                  {this.props.isAdmin && <Link to={`../../products/${eachProduct.id}/update`}>Edit</Link>}
+                  <br />
                 </div>
               ))}
             </div>
@@ -59,12 +65,14 @@ class ProductList extends React.Component {
 }
 
 const mapStatetoProps = state => ({
-  products: state.product.products
+  products: state.product.products,
+  isAdmin: state.user.adminStatus
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
-  addToCart: (product) => dispatch(addProduct())
+  //addToCart: (product) => dispatch(addProduct())
+  addToCart: (id) => dispatch(addToCart(id))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(ProductList)
