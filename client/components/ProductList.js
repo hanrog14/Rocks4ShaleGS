@@ -22,7 +22,7 @@ class ProductList extends React.Component {
     event.preventDefault()
     //console.log("click")
     this.props.addToCart(event.target.value)
-  
+
   }
 
   render() {
@@ -33,7 +33,9 @@ class ProductList extends React.Component {
     }
     return (
       possibleCategories.includes(category) ?
+
         <div>
+          <h1>THIS IS WORKING</h1>
           <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
           <div className="all-product-container">
             <div className="row">
