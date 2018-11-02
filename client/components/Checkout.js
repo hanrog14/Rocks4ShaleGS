@@ -1,0 +1,45 @@
+import React from 'react'
+import axios from 'axios'
+import StripeCheckout from 'react-stripe-checkout'
+
+const STRIPE_PUBLISHABLE = 'STRIPE_LOOKUP'
+const PAYMENT_SERVER_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'our heroku app goes here'
+    : 'http://localhost:3000'
+
+const successPayment = data => {
+  alert('Payment Successful')
+}
+
+const errorPayment = data => {
+  alert('Payment Error')
+}
+
+const onToken = (amount, description, metadata) => token =>
+  axios
+    .post('/api/stripe', {
+      description,
+      source: token.id,
+      currency: 'USD',
+      amount,
+      metadata,
+    })
+    .then(data => successPayment(data))
+    .catch(data => errorPayment(data))
+
+const Checkout = ({name, description, amount, metadata}) => (
+  <StripeCheckout
+    allowRememberMe
+    shippingAddress
+    billingAddress
+    name={name}
+    description={description}
+    amount={amount}
+    token={onToken(amount, description, metadata)}
+    currency="USD"
+    stripeKey={STRIPE_PUBLISHABLE}
+  />
+)
+
+export default Checkout
