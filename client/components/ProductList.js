@@ -38,7 +38,7 @@ class ProductList extends React.Component {
                   <br/>
                   <button type="button" onClick={() => this.props.addToCart(eachProduct.id)}>Add To Cart</button>
                   <br />
-                  {this.props.isAdmin && <Link to={`../../products/${eachProduct.id}/update`}>Edit</Link>}
+                  {this.props.isAdmin && <Link to={{pathname: `../../products/${eachProduct.id}/update`, state: eachProduct}}>Edit</Link>}
                   <br />
                 </div>
               ))}
