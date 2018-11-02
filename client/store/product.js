@@ -8,6 +8,7 @@ const SET_PRODUCTS = 'SET_PRODUCTS'
 const GET_PRODUCT_SINGLE = 'GET_PRODUCT_SINGLE'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const ADD_PRODUCT_REVIEW = 'ADD_PRODUCT_REVIEW'
 
 /**
  * INITIAL STATE
@@ -29,8 +30,8 @@ const gotUpdatedProduct = product => ({type: UPDATE_PRODUCT, product})
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/api/products')
-      dispatch(setProducts(response.data))
+      const res = await axios.get('/api/products')
+      dispatch(setProducts(res.data))
     }
     catch(err) {
       console.error(err)
@@ -39,8 +40,8 @@ export const fetchProducts = () => {
 }
 export const getSelectedProduct = (id) => async dispatch => {
   try {
-    const prod = await axios.get(`/api/products/${id}`)
-    dispatch(getProduct(prod.data))
+    const res = await axios.get(`/api/products/${id}`)
+    dispatch(getProduct(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -48,8 +49,8 @@ export const getSelectedProduct = (id) => async dispatch => {
 export const getNewProduct = (productObj) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('/api/products', productObj)
-      dispatch(addProduct(response.data))
+      const res = await axios.post('/api/products', productObj)
+      dispatch(addProduct(res.data))
       history.push('/products/category/all')
     } catch(err) {
       console.error(err)
@@ -60,10 +61,22 @@ export const getNewProduct = (productObj) => {
 export const updateProduct = (product, productId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/api/products/${productId}`, product)
-      dispatch(gotUpdatedProduct(response.data))
+      const res = await axios.put(`/api/products/${productId}`, product)
+      dispatch(gotUpdatedProduct(res.data))
       history.push('../category/all')
     } catch(err) {
+      console.error(err)
+    }
+  }
+}
+
+export const addReview = (review, productId) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`/api/products/${productId}/review`, review)
+      dispatch(gotUpdatedProduct(res.data))
+      history.push(`/products/${productId}`)
+    } catch (err) {
       console.error(err)
     }
   }
