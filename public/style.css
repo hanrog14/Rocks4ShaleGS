@@ -45,3 +45,8 @@ form div {
   flex-wrap: wrap;
   flex-direction: row;
 }
+
+.no-break {
+  /* display: inline-block; */
+  white-space: nowrap
+}
