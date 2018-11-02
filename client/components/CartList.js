@@ -48,22 +48,9 @@ const mapStatetoProps = state => ({
   products: state.order.cart
 })
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-export default connect(mapStatetoProps)(CartList)
-
-
-=======
 const mapDispatchToProps = dispatch => ({
   removeItemToOrder: id => dispatch(removeItemToOrder(id)),
   getWholeCart: () => dispatch(getWholeCart())
 })
->>>>>>> Stashed changes
-=======
-const mapDispatchToProps = dispatch => ({
-  removeItemToOrder: (id) => dispatch(removeItemToOrder(id)),
-  getWholeCart: () => dispatch(getWholeCart())
-})
->>>>>>> master
 
 export default connect(mapStatetoProps, mapDispatchToProps)(CartList)
