@@ -8,7 +8,7 @@ export default class CreateUpdateProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      objectProps: this.props.selectedItem || {},
+      objectProps: this.props.location.state|| {},
       errMessage: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
