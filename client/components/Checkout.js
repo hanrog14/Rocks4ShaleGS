@@ -6,7 +6,7 @@ const STRIPE_PUBLISHABLE = 'pk_test_4CxUYON5SPh3lzAPzarC3fZI'
 const PAYMENT_SERVER_URL =
   process.env.NODE_ENV === 'production'
     ? 'our heroku app goes here'
-    : 'http://localhost:3000'
+    : 'http://localhost:3000/api/checkout'
 
 const CURRENCY = 'USD';
 

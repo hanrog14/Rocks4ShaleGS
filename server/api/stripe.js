@@ -1,43 +1,69 @@
-//import secret from '../../secrets'
-const router = require('express')()
-
-const keyPublishable = process.env.PUBLISHABLE_KEY
-const keySecret = process.env.SECRET_KEY
-
-const stripe = require('stripe')(keySecret)
-
-router.set("view engine", "pug")
-router.use(require("body-parser").urlencoded({extended: false}));
-
-const {Order} = require('../db/models/')
+const router = require('express').Router()
+const stripe = require('stripe')(process.env.SECRET_KEY)
+const {Order} = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res) => {
-  res.render('index.pug', {keyPublishable})
+const postStripeCharge = (res, req) => async (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({
+      error: stripeErr
+    })
+  } else {
+    res.status(200).send({
+      success: stripeRes
+    })
+    const previousCart = await Order.findById(req.body.id)
+    await previousCart.update({
+      isCart: false,
+      status: 'paid',
+      total: req.body.amountTotal
+    })
+
+    //inventory deduction goes here?
+  }
+}
+
+router.post('/checkout', (req, res, next) => {
+  try {
+    stripe.charges.create(req.body, postStripeCharge(res, req))
+  } catch (err) {
+    next(err)
+  }
 })
 
-router.post('/stripe', (req, res) => {
-  let amount = 40;
+//offical doc code
+// //import secret from '../../secrets'
+// const router = require('express')()
 
-  stripe.customers.create({
-    email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  })
-  .then(customer =>
-    stripe.charges.create({
-      amount,
-      description: "Sample Charge",
-         currency: "usd",
-         customer: customer.id
-    }))
-  .then(charge => res.render("charge.pug"));
+// const keyPublishable = process.env.PUBLISHABLE_KEY
+// const keySecret = process.env.SECRET_KEY
 
-})
+// const stripe = require('stripe')(keySecret)
 
-// const stripeChar = (res, req) =>{
-//   switch(err.type){
-//     case 'StripeCardError':
+// router.set("view engine", "pug")
+// router.use(require("body-parser").urlencoded({extended: false}));
 
-//     err.message;
-//   }
-// }
+// const {Order} = require('../db/models/')
+// module.exports = router
+
+// router.get('/', (req, res) => {
+//   res.render('index.pug', {keyPublishable})
+// })
+
+// router.post('/stripe', (req, res) => {
+//   let amount = 40;
+
+//   stripe.customers.create({
+//     email: req.body.stripeEmail,
+//     source: req.body.stripeToken
+//   })
+//   .then(customer =>
+//     stripe.charges.create({
+//       amount,
+//       description: "Sample Charge",
+//          currency: "usd",
+//          customer: customer.id
+//     }))
+//   .then(charge => res.render("charge.pug"));
+
+// })
