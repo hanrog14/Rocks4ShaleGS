@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {removeItemToOrder, getWholeCart} from '../store/order'
+import {Link} from 'react-router-dom'
 
 class CartList extends React.Component {
   componentDidMount() {
@@ -8,7 +9,6 @@ class CartList extends React.Component {
   }
 
   render() {
-
     let productCartArray = Array.from(this.props.products)
     const quantityRange = (start, end) => {
       return Array(end - start + 1)
@@ -39,6 +39,7 @@ class CartList extends React.Component {
       <div>
         <h1>Cart:</h1>
         <ul>{arrayRender}</ul>
+        <Link to="/checkout"><button type="button">Checkout</button></Link>
       </div>
     )
   }
