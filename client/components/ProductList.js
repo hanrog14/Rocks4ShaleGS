@@ -25,7 +25,7 @@ class ProductList extends React.Component {
         <div>
           <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
           <div className="all-product-container">
-            {this.props.isAdmin && <Link to="../../products/create">Create new Product</Link>}
+            {this.props.isAdmin && <Link to="../../products/create"><button type="submit">Create new Product</button></Link>}
             <div className="row">
               <br/>
               {products.map(eachProduct => (
