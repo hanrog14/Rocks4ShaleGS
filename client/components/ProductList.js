@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
 import {addItemToOrder} from '../store/order'
-import {addToCart} from '../store/user'
 import {NotFoundComponent} from './NotFoundComponent'
 import {Link} from 'react-router-dom'
 
@@ -10,22 +9,8 @@ const possibleCategories = ["Miscellaneous", "Sedimentary", "Igneous", "Metamorp
 
 class ProductList extends React.Component {
 
-  constructor(props){
-    super(props)
-
-    this.clickHandler = this.clickHandler.bind(this)
-  }
-
   componentDidMount() {
     this.props.fetchAllProducts()
-    //this.props.addItemToOrder(1)
-  }
-
-  clickHandler(event){
-    event.preventDefault()
-    //console.log("click")
-    this.props.addToCart(event.target.value)
-
   }
 
   render() {
@@ -36,6 +21,7 @@ class ProductList extends React.Component {
     }
     return (
       possibleCategories.includes(category) ?
+
         <div>
           <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
           <div className="all-product-container">
@@ -71,8 +57,7 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
-  //addToCart: (product) => dispatch(addProduct())
-  addToCart: (id) => dispatch(addToCart(id))
+  addToCart: (id) => dispatch(addItemToOrder(id))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(ProductList)

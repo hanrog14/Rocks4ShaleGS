@@ -1,7 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {removeItemToOrder, getWholeCart} from '../store/order'
 
 class CartList extends React.Component {
+  componentDidMount() {
+    this.props.getWholeCart()
+  }
 
   render() {
 
@@ -32,19 +36,19 @@ class CartList extends React.Component {
     })
 
     return (
-        <div>
-          <ul>
-            {arrayRender}
-          </ul>
-        </div>
+      <div>
+        <h1>Cart:</h1>
+        <ul>{arrayRender}</ul>
+      </div>
     )
   }
 }
 
 const mapStatetoProps = state => ({
-  products: state.product.products
+  products: state.order.cart
 })
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 export default connect(mapStatetoProps)(CartList)
 
@@ -55,4 +59,11 @@ const mapDispatchToProps = dispatch => ({
   getWholeCart: () => dispatch(getWholeCart())
 })
 >>>>>>> Stashed changes
+=======
+const mapDispatchToProps = dispatch => ({
+  removeItemToOrder: (id) => dispatch(removeItemToOrder(id)),
+  getWholeCart: () => dispatch(getWholeCart())
+})
+>>>>>>> master
 
+export default connect(mapStatetoProps, mapDispatchToProps)(CartList)

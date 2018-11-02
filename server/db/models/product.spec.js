@@ -8,13 +8,13 @@ describe('Product model', () => {
 
 
   beforeEach(() => {
-    
+
     return db.sync({force: true})
   })
 
   describe('The `Products` model', () => {
     describe('correct model setup', () => {
-      let product; 
+      let product;
       let name = 'Rocks';
       let description = 'This is a rock';
       let price = 1.01
@@ -31,7 +31,7 @@ describe('Product model', () => {
           category,
           pictureUrl
         })
-      
+
       })
 
       it('includes `name`, `description`, `price`, `inventory`, `category` and `pictureURL` fields', () => {
@@ -81,16 +81,6 @@ describe('Product model', () => {
         .then(res => console.log("***", res), (err) => {
             console.log("ERRRRR", err)
         });
-          // () => {
-          //   throw new Error(
-          //     'validation should fail when price is not in decimal form'
-          //   );
-          // })
-          // createdError => {
-          //   expect(createdError).to.be.an.instanceOf(Error);
-          //   expect(createdError.message).to.contain('Validation error');
-          // }
-        //);
       });
 
       it('requires `inventory`', () => {
@@ -125,7 +115,7 @@ describe('Product model', () => {
       //end of `attributes definition` describe block for now
     });
 
-   
+
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
    // end describe('User model')
