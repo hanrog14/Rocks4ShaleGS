@@ -7,7 +7,7 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => {
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>Welcome to Rocks 4 Shale!</h1>
       <nav>
         <Link to="/products/category/all">All</Link>
         <Link to="/products/category/Igneous">Igneous</Link>
