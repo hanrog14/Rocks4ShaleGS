@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeItemToOrder, getWholeCart, addItemToOrder} from '../store/order'
+import {removeItemToOrder, getWholeCart, addItemToOrder, updateItem} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class CartList extends React.Component {
@@ -15,18 +15,10 @@ class CartList extends React.Component {
     this.props.getWholeCart()
   }
 
-  handleChange(event) {
+  handleChange(event, i) {
     event.preventDefault();
-
-    const newItem = this.props.products.filter(eachItem => +eachItem.id === +event.target.name)[0]
-
-    newItem.quantity = +event.target.value
-
-    const newCart = this.props.products.filter(eachItem => +eachItem.id !== +event.target.name)
-
-    newCart.push(newItem)
-
-    this.setState(newCart);
+    this.props.quantity[i] = parseInt(event.target.value, 10)
+    this.props.updateItem(this.props.products, this.props.quantity)
   }
 
   handleSubmit(event) {
@@ -35,26 +27,17 @@ class CartList extends React.Component {
   }
 
   render() {
-    let productCartArray = Array.from(this.props.products)
-    const quantityRange = (start, end) => {
-      return Array(end - start + 1)
-        .fill()
-        .map((item, index) => (
-          <option
-          key={index}
-          value={start + index}
-          onChange={this.handleChange}
-          >
-          {start + index}
-          </option>
-        ))
-    }
-    let arrayRender = productCartArray.map(item => {
+    let productCartArray = this.props.products
+    let arrayRender = productCartArray.map((item, i) => {
       return (
         <div className="no-break" key={item.id}>
           <form id="update-quantity" onSubmit={this.handleSubmit}>
             {'NAME: ' + item.name}: {'PRICE: ' + item.price}: QUANTITY:
-            <select name={item.id} onChange={this.handleChange}>{quantityRange(1, item.quantity).reverse()}</select>
+            <select defaultValue={this.props.quantity[i]} onChange={(event) => this.handleChange(event, i)}>{
+              new Array(item.inventory).fill().map((elem, idx) => {
+                return <option key={idx} value={1+idx}>{1+idx}</option>
+              })
+            }</select>
             <button type="submit">
               Update
             </button>
@@ -75,20 +58,22 @@ class CartList extends React.Component {
       <div>
         <h1>Cart:</h1>
         <ul>{arrayRender}</ul>
-        <Link to="/checkout"><button type="submit">Checkout</button></Link>
+        <Link to="/checkout"><button type="button">Checkout</button></Link>
       </div>
     )
   }
 }
 
 const mapStatetoProps = state => ({
-  products: state.order.cart
+  products: state.order.cart,
+  quantity: state.order.quantity
 })
 
 const mapDispatchToProps = dispatch => ({
   removeItemToOrder: id => dispatch(removeItemToOrder(id)),
   getWholeCart: () => dispatch(getWholeCart()),
-  addItemToOrder: () => dispatch(addItemToOrder())
+  addItemToOrder: () => dispatch(addItemToOrder()),
+  updateItem: (cart, products) => dispatch(updateItem(cart, products))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(CartList)
