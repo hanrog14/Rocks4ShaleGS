@@ -88,6 +88,28 @@ router.get('/add/:id', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id, {include: [Product]})
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/history/:id', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/update', (req, res) => {
   req.session.cart = req.body.cart
   req.session.quantity = req.body.quantity
