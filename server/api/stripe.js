@@ -13,6 +13,7 @@ const postStripeCharge = (res, req) => async (stripeErr, stripeRes) => {
       success: stripeRes
     })
     const previousCart = await Order.findById(req.body.id)
+    console.log("REQ.BODY", req.body)
     await previousCart.update({
       isCart: false,
       status: 'paid',
