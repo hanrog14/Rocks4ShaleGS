@@ -5,11 +5,11 @@ const UPDATE_CART = 'UPDATE_CART'
 const UPDATE_PREV_ORDERS = 'UPDATE_PREV_ORDERS'
 const GET_ORDER = 'UPDATE_ORDER'
 
-const defaultState = {cart: [], quantity: [], prevOrders: []}
+const defaultState = {cart: [], quantity: [], prevOrders: [], curOrderProducts: []}
 
 const updateCart = (order) => ({type: UPDATE_CART, order })
 const gotPrevOrders = (orders) => ({type: UPDATE_PREV_ORDERS, orders})
-const getCurrentOrder = (order) => ({type: GET_ORDER, order})
+const getCurrentOrder = (products) => ({type: GET_ORDER, products})
 
 export const addItemToOrder = (id) => async dispatch => {
   try {
@@ -80,7 +80,7 @@ export const fetchOrder = (id) => async dispatch => {
 export default function(state = defaultState, action) {
   switch (action.type) {
     case GET_ORDER:
-      return {...state, selectedOrder: action.order}
+      return {...state, curOrderProducts: action.products}
     case UPDATE_CART:
       return {...state, cart: action.order.cart, quantity: action.order.quantity}
     case UPDATE_PREV_ORDERS:

@@ -10,14 +10,13 @@ class OrderHistory extends React.Component {
 
   render() {
     return (
-      this.props.order ?
+      this.props.orderProducts ?
       <div>
         <h2>ORDER INFO</h2>
           <br/>
-          {this.props.order.products.map(product => (
-            <div key={product.id}>
-              <h4>{product.name}</h4>
-              <br />
+          {this.props.orderProducts.map(product => (
+            <div key={product.productId}>
+              <h4>Name: {product.name} Quantity: {product.quantity} Price: {product.price}</h4>
             </div>
           ))}
       </div> :
@@ -27,7 +26,7 @@ class OrderHistory extends React.Component {
 }
 
 const mapStatetoProps = state => ({
-  order: state.order.selectedOrder
+  orderProducts: state.order.curOrderProducts
 })
 
 const mapDispatchToProps = dispatch => ({

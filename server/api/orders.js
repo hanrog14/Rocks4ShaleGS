@@ -41,7 +41,9 @@ router.post('/create', async (req, res, next) => {
     let userId = (req.user) ? req.user.id : null
     const order = await Order.create({isCart: false, userId: userId});
     await Promise.all(
-      req.session.cart.map(prod => OrderProduct.create({productId: prod.id, orderId: order.id}))
+      req.session.cart.map((prod, i) => {
+        OrderProduct.create({productId: prod.id, orderId: order.id, quantity: req.session.quantity[i], price: prod.price, name: prod.name})
+      })
     )
     req.session.cart = null
     req.session.quantity = null
@@ -90,8 +92,10 @@ router.get('/add/:id', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.id, {include: [Product]})
-    res.json(order)
+    const products = await OrderProduct.findAll({
+      where: {orderId: req.params.id}
+    })
+    res.json(products)
   } catch (err) {
     next(err)
   }
@@ -114,21 +118,4 @@ router.put('/update', (req, res) => {
   req.session.cart = req.body.cart
   req.session.quantity = req.body.quantity
   res.json({cart: req.session.cart, quantity: req.session.quantity})
-})
-
-router.put('/', async (req, res, next) => {
-  try {
-    const [order, created] = await Order.findOrCreate({
-      where: {
-        isCart: true,
-        userId: req.user.id
-      },
-      include: [{model: Product}]
-    })
-    const product = await Product.findById(req.body.id)
-    await OrderProduct.create({productId: product.id, orderId: order.id})
-    res.status(200).json(order)
-  } catch (err) {
-    next(err)
-  }
 })
