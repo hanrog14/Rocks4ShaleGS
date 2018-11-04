@@ -24,6 +24,8 @@ class CartList extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.getWholeCart()
+    console.log('this is the target', event.target.value)
+    // this.props.addItemToOrder(event)
   }
 
   render() {
