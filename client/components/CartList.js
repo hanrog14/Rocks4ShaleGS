@@ -1,14 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeItemToOrder, getWholeCart, addItemToOrder, updateItem} from '../store/order'
+import {
+  removeItemToOrder,
+  getWholeCart,
+  addItemToOrder,
+  updateItem
+} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class CartList extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -16,16 +21,14 @@ class CartList extends React.Component {
   }
 
   handleChange(event, i) {
-    event.preventDefault();
-    this.props.quantity[i] = parseInt(event.target.value, 10)
+    event.preventDefault()
+    this.props.products[i].quantity = parseInt(event.target.value, 10)
     this.props.updateItem(this.props.products, this.props.quantity)
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.props.getWholeCart()
-    console.log('this is the target', event.target.value)
-    // this.props.addItemToOrder(event)
   }
 
   render() {
@@ -35,21 +38,25 @@ class CartList extends React.Component {
         <div className="no-break" key={item.id}>
           <form id="update-quantity" onSubmit={this.handleSubmit}>
             {'NAME: ' + item.name}: {'PRICE: ' + item.price}: QUANTITY:
-            <select defaultValue={this.props.quantity[i]} onChange={(event) => this.handleChange(event, i)}>{
-              new Array(item.inventory).fill().map((elem, idx) => {
-                return <option key={idx} value={1+idx}>{1+idx}</option>
-              })
-            }</select>
-            <button type="submit">
-              Update
-            </button>
+            <select
+              defaultValue={this.props.products[i].quantity}
+              onChange={event => this.handleChange(event, i)}
+            >
+              {new Array(item.inventory).fill().map((elem, idx) => {
+                return (
+                  <option key={idx} value={1 + idx}>
+                    {1 + idx}
+                  </option>
+                )
+              })}
+            </select>
+            <button type="submit">Update</button>
             <button
               type="button"
               onClick={() => this.props.removeItemToOrder(item.id)}
             >
               x
             </button>
-
           </form>
           <br />
         </div>
@@ -60,7 +67,9 @@ class CartList extends React.Component {
       <div>
         <h1>Cart:</h1>
         <ul>{arrayRender}</ul>
-        <Link to="/checkout"><button type="button">Checkout</button></Link>
+        <Link to="/checkout">
+          <button type="button">Checkout</button>
+        </Link>
       </div>
     )
   }

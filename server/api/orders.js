@@ -3,28 +3,28 @@ const {Order, Product, OrderProduct} = require('../db/models')
 module.exports = router
 
 const updateCart = async (user, next, session) => {
-  // if (user) {
-  //   const [order, created] = await Order.findOrCreate({
-  //     where: {
-  //       isCart: true,
-  //       userId: user.id
-  //     }
-  //   })
-  //   session.order = order.toJSON()
-  //   session.cart = session.order.products
-  //   session.quantity = session.order.products.map(async product => {
-  //     const joinTable = await Order.findOne({
-  //       where: {
-  //         productId: product.id,
-  //         orderId: order.id
-  //       }
-  //     })
-  //     return joinTable.quantity
-  //   })
-  // } else {
-  //   session.cart = []
-  //   session.quantity = []
-  // }
+  if (user) {
+    const [order, created] = await Order.findOrCreate({
+      where: {
+        isCart: true,
+        userId: user.id
+      }
+    })
+    session.order = order.toJSON()
+    session.cart = session.order.products
+    session.quantity = session.order.products.map(async product => {
+      const joinTable = await Order.findOne({
+        where: {
+          productId: product.id,
+          orderId: order.id
+        }
+      })
+      return joinTable.quantity
+    })
+  } else {
+    session.cart = []
+    session.quantity = []
+  }
   session.cart = []
   session.quantity = []
 }
@@ -66,6 +66,7 @@ router.get('/', async (req, res, next) => {
 
 router.delete('/remove/:id', (req, res) => {
   const idx = getCartIndex(req.params.id, req.session.cart)
+  console.log('this is the cart', req.session.cart)
   req.session.cart.splice(idx, 1)
   req.session.quantity.splice(idx, 1)
   res.json({cart: req.session.cart, quantity: req.session.quantity})
