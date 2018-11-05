@@ -27,9 +27,7 @@ export const getWholeCart = () => async dispatch => {
 
 export const addItemToOrder = id => async dispatch => {
   try {
-    console.log('this is the id', id)
     const res = await axios.get(`/api/orders/add/${id}`)
-    console.log('this is the res', res)
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
@@ -63,6 +61,16 @@ export const submitOrder = shippingInfo => async dispatch => {
     dispatch(updateCart(res.data))
     history.push('/confirmation')
   } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchAllOrders = () => async dispatch => {
+  try {
+    const res = await axios.get(`/api/orders/history`)
+    dispatch(gotPrevOrders(res.data))
+  }
+  catch(err) {
     console.error(err)
   }
 }

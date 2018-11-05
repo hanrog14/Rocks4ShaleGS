@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleProduct, ProductList, CartList, CreateProduct, UpdateProduct, CreateReview, BillingForm, Confirmation, OrderHistory, SingleOrder} from './components'
+import {Login, Signup, UserHome, SingleProduct, ProductList, CartList, CreateProduct, UpdateProduct, CreateReview, BillingForm, Confirmation, OrderHistory, SingleOrder, AdminOrdersView} from './components'
 import {me} from './store'
 
 /**
@@ -23,6 +23,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={CartList} />
         <Route path='/checkout' component={BillingForm} />
+        <Route path='/tasks' component={AdminOrdersView} />
         <Route path='/confirmation' component={Confirmation} />
         <Route path="/history/:id" component={OrderHistory} />
         <Route path="/orders/:id" component={SingleOrder} />

@@ -1,30 +1,30 @@
 const router = require('express').Router()
-const {Order, Product, OrderProduct} = require('../db/models')
+const {Order, Product, OrderProduct, User} = require('../db/models')
 module.exports = router
 
 const updateCart = async (user, next, session) => {
-  if (user) {
-    const [order, created] = await Order.findOrCreate({
-      where: {
-        isCart: true,
-        userId: user.id
-      }
-    })
-    session.order = order.toJSON()
-    session.cart = session.order.products
-    session.quantity = session.order.products.map(async product => {
-      const joinTable = await Order.findOne({
-        where: {
-          productId: product.id,
-          orderId: order.id
-        }
-      })
-      return joinTable.quantity
-    })
-  } else {
-    session.cart = []
-    session.quantity = []
-  }
+  // if (user) {
+  //   const [order, created] = await Order.findOrCreate({
+  //     where: {
+  //       isCart: true,
+  //       userId: user.id
+  //     }
+  //   })
+  //   session.order = order.toJSON()
+  //   session.cart = session.order.products
+  //   session.quantity = session.order.products.map(async product => {
+  //     const joinTable = await Order.findOne({
+  //       where: {
+  //         productId: product.id,
+  //         orderId: order.id
+  //       }
+  //     })
+  //     return joinTable.quantity
+  //   })
+  // } else {
+  //   session.cart = []
+  //   session.quantity = []
+  // }
   session.cart = []
   session.quantity = []
 }
@@ -58,15 +58,33 @@ router.post('/create', async (req, res, next) => {
 // })
 
 router.get('/', async (req, res, next) => {
-  if (!req.session.cart) {
-    await updateCart(req.user, next, req.session)
+  try{
+    if (!req.session.cart) {
+      await updateCart(req.user, next, req.session)
+    }
+    res.json({cart: req.session.cart, quantity: req.session.quantity})
   }
-  res.json({cart: req.session.cart, quantity: req.session.quantity})
+  catch(err) {
+    next(err)
+  }
+})
+
+router.get('/history', async (req, res, next) => {
+  try {
+    const orders = await User.findAll({
+      include: [
+        {model: Order}
+      ]
+    })
+    res.json(orders)
+  }
+  catch(err) {
+    next(err)
+  }
 })
 
 router.delete('/remove/:id', (req, res) => {
   const idx = getCartIndex(req.params.id, req.session.cart)
-  console.log('this is the cart', req.session.cart)
   req.session.cart.splice(idx, 1)
   req.session.quantity.splice(idx, 1)
   res.json({cart: req.session.cart, quantity: req.session.quantity})
@@ -101,6 +119,8 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+
 
 router.get('/history/:id', async (req, res, next) => {
   try {

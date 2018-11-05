@@ -12,8 +12,8 @@ class CartList extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class CartList extends React.Component {
 
   handleChange(event, i) {
     event.preventDefault()
-    this.props.products[i].quantity = parseInt(event.target.value, 10)
+    this.props.quantity[i] = parseInt(event.target.value, 10)
     this.props.updateItem(this.props.products, this.props.quantity)
   }
 
@@ -39,7 +39,7 @@ class CartList extends React.Component {
           <form id="update-quantity" onSubmit={this.handleSubmit}>
             {'NAME: ' + item.name}: {'PRICE: ' + item.price}: QUANTITY:
             <select
-              defaultValue={this.props.products[i].quantity}
+              defaultValue={this.props.quantity[i]}
               onChange={event => this.handleChange(event, i)}
             >
               {new Array(item.inventory).fill().map((elem, idx) => {
