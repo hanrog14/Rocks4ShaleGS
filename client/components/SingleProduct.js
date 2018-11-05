@@ -14,7 +14,7 @@ class SingleProduct extends Component {
 
   render() {
     return (
-      <div>
+      <div className="all-product-container">
         {
         this.props.product.id ?
           <div>

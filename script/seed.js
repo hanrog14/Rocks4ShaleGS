@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Review} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -60,6 +60,10 @@ async function seed() {
     Product.create({name: 'Driftwood', description: `Blown from the finest forests. 10 - 14"`, price: 14.99, inventory: 3, category: 'Miscellaneous', pictureUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmEwv4P5uaRW3uPP7xYvgZ77uxrOJ782AVKS9blYgGTIkBDJzsJA'}),
 
     Product.create({name: 'Bricks', description: `Lightly worn loose bricks. Pallet size.`, price: 80.00, inventory: 80, category: 'Miscellaneous', pictureUrl: 'https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2016/06/30/BostonGlobe.com/Business/Images/shutterstock_36496531.jpg'})
+  ])
+
+  const reviews = await Promise.all([
+    Review.create({stars: 5, comments: "Lovely material!"})
   ])
 
   console.log(`seeded ${users.length} users`)

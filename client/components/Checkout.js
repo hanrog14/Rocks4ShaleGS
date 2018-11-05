@@ -5,7 +5,7 @@ import StripeCheckout from 'react-stripe-checkout'
 const STRIPE_PUBLISHABLE = 'pk_test_4CxUYON5SPh3lzAPzarC3fZI'
 const PAYMENT_SERVER_URL =
   process.env.NODE_ENV === 'production'
-    ? 'our heroku app goes here'
+    ? 'https://rocks-4-shale.herokuapp.com'
     : 'http://localhost:3000'
 
 const CURRENCY = 'USD';

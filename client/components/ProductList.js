@@ -23,7 +23,10 @@ class ProductList extends React.Component {
       possibleCategories.includes(category) ?
 
         <div>
-          <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
+          {/* <div className="page-title-container" style={backgroundImage:`/images/${category}.jpg`} > */}
+            <h2> {`${category.toUpperCase()} PRODUCTS`}</h2>
+            <img className="column-image" src={`/images/${category}.jpg`} />
+          {/* </div> */}
           <div className="all-product-container">
             {this.props.isAdmin && <Link to="../../products/create"><button type="submit">Create new Product</button></Link>}
             <div className="row">
