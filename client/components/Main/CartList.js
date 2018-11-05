@@ -11,13 +11,13 @@ import {Link} from 'react-router-dom'
 class CartList extends React.Component {
   constructor(props) {
     super(props)
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.getWholeCart()
+    console.log('THIS: ', this.props)
   }
 
   handleChange(event, i) {
@@ -33,7 +33,9 @@ class CartList extends React.Component {
 
   render() {
     let productCartArray = this.props.products
+    let cartTotal = 0;
     let arrayRender = productCartArray.map((item, i) => {
+      cartTotal += item.price * this.props.quantity[i]
       return (
         <div className="no-break" key={item.id}>
           <form id="update-quantity" onSubmit={this.handleSubmit}>
@@ -62,9 +64,9 @@ class CartList extends React.Component {
         </div>
       )
     })
-
     return (
       <div>
+        <h3>{cartTotal}</h3>
         <h1>Cart:</h1>
         <ul>{arrayRender}</ul>
         <Link to="/checkout">
