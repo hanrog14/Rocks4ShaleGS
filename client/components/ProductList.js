@@ -15,15 +15,19 @@ class ProductList extends React.Component {
 
   render() {
     const category = this.props.match.params.category;
+    const name = this.props.match.params.name;
     let products = this.props.products;
-    if (category !== 'all') {
+
+    if (name) {
+      products = this.props.products.filter(prod => prod.name.toLowerCase() === name.toLowerCase());
+    } else if (category !== 'all') {
       products = this.props.products.filter(prod => prod.category === category);
     }
     return (
-      possibleCategories.includes(category) ?
+      possibleCategories.includes(category) || name ?
 
         <div>
-          <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>
+          {category && <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>}
           <div className="all-product-container">
             {this.props.isAdmin && <Link to="../../products/create"><button type="submit">Create new Product</button></Link>}
             <div className="row">

@@ -22,7 +22,6 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={CartList} />
-        <Route path='/checkout' component={BillingForm} />
         <Route path='/tasks' component={AdminOrdersView} />
         <Route path='/confirmation' component={Confirmation} />
         <Route path="/history/:id" component={OrderHistory} />
@@ -31,6 +30,7 @@ class Routes extends Component {
         <Route path="/products/:id/review" component={CreateReview} />
         <Route path="/products/:id/update" component={UpdateProduct} />
         <Route path='/products/category/:category' component={ProductList} />
+        <Route path='/products/name/:name' component={ProductList} />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/checkout" component={Shipping} />
         {isLoggedIn && (

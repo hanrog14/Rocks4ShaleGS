@@ -16,7 +16,6 @@ class Billing extends Component {
         token={this.onToken}
         billingAddress={true}
         shippingAddress={true}
-        // receipt_email={token.body.email}
         stripeKey="pk_test_4CxUYON5SPh3lzAPzarC3fZI"
       />
       )

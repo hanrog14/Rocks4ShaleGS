@@ -3,42 +3,22 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Searchbar from './Searchbar'
 
 const Navbar = ({handleClick, isLoggedIn, userId, isAdmin}) => {
   return (
     <div>
       <h1>Welcome to Rocks 4 Shale!</h1>
       <nav>
-        {isAdmin ? (
-          <div>
-            <Link to="/products/category/all">All</Link>
-            <Link to="/products/category/Igneous">Igneous</Link>
-            <Link to="/products/category/Metamorphic">Metamorphic</Link>
-            <Link to="/products/category/Sedimentary">Sedimentary</Link>
-            <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/checkout">Checkout</Link>
-            <Link to="/tasks">Admin Orders View</Link>
-            <input type="text" name="search-bar" placeholder="Search.." />
-            <button type="submit" value="submit">
-              >
-            </button>
-          </div>
-        ) : (
-          <div>
-            <Link to="/products/category/all">All</Link>
-            <Link to="/products/category/Igneous">Igneous</Link>
-            <Link to="/products/category/Metamorphic">Metamorphic</Link>
-            <Link to="/products/category/Sedimentary">Sedimentary</Link>
-            <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/checkout">Checkout</Link>
-            <input type="text" name="search-bar" placeholder="Search.." />
-            <button type="submit" value="submit">
-              >
-            </button>
-          </div>
-        )}
+        <Link to="/products/category/all">All</Link>
+        <Link to="/products/category/Igneous">Igneous</Link>
+        <Link to="/products/category/Metamorphic">Metamorphic</Link>
+        <Link to="/products/category/Sedimentary">Sedimentary</Link>
+        <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
+        <Link to="/checkout">Checkout</Link>
+        <Link to="/cart">Cart</Link>
+        {isAdmin && <Link to="/tasks">Admin Orders View</Link>}
+        <Searchbar />
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
