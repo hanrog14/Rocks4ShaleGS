@@ -51,12 +51,6 @@ router.post('/create', async (req, res, next) => {
   } catch (err) {next(err)}
 })
 
-// router.delete('/clear', (req, res) => {
-//   req.session.cart = null
-//   req.session.quantity = null
-//   res.json({cart: req.session.cart, quantity: req.session.quantity})
-// })
-
 router.get('/', async (req, res, next) => {
   try{
     if (!req.session.cart) {
@@ -71,10 +65,10 @@ router.get('/', async (req, res, next) => {
 
 router.get('/history', async (req, res, next) => {
   try {
-    const orders = await User.findAll({
-      include: [
-        {model: Order}
-      ]
+    const orders = await Order.findAll({
+      where: {
+        isCart: false
+      }
     })
     res.json(orders)
   }
@@ -119,8 +113,6 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
-
-
 
 router.get('/history/:id', async (req, res, next) => {
   try {
