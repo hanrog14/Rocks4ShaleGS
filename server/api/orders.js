@@ -45,8 +45,8 @@ router.post('/create', async (req, res, next) => {
         OrderProduct.create({productId: prod.id, orderId: order.id, quantity: req.session.quantity[i], price: prod.price, name: prod.name})
       })
     )
-    req.session.cart = null
-    req.session.quantity = null
+    req.session.cart = [];
+    req.session.quantity = [];
     res.json({cart: req.session.cart, quantity: req.session.quantity})
   } catch (err) {next(err)}
 })
