@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchAllOrders} from '../store/order'
+import {fetchAllOrders} from '../../store/order'
 import {Link} from 'react-router-dom'
 
 class AdminOrdersView extends React.Component {
@@ -9,7 +9,6 @@ class AdminOrdersView extends React.Component {
   }
 
   render() {
-    console.log('this is the pre', this.props.prevOrders)
     const filtered = this.props.prevOrders.filter(
       eachOrder => eachOrder.shippingStatus === 'processing'
     )
@@ -36,7 +35,7 @@ class AdminOrdersView extends React.Component {
         <h2>List of Shipped Orders</h2>
         {filteredClosed.map(eachOrder => {
             return (
-              <li>
+              <li key={eachOrder.id}>
                 OrderID: {eachOrder.id}
                 status: {eachOrder.shippingStatus}
               </li>

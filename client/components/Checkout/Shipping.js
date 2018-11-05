@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import {connect} from 'react-redux'
-import {submitOrder} from '../store/order'
+import {submitOrder} from '../../store/order'
 
 class Billing extends Component {
 
