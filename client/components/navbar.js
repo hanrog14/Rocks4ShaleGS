@@ -14,8 +14,8 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => {
         <Link to="/products/category/Metamorphic">Metamorphic</Link>
         <Link to="/products/category/Sedimentary">Sedimentary</Link>
         <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-        <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link>
+        <Link to="/cart">Cart</Link>
         <input type="text" name="search-bar" placeholder="Search.." />
         <button type="submit" value="submit">
           >
