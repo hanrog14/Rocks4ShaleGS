@@ -22,6 +22,8 @@ class Billing extends Component {
   }
 }
 
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
     submitChange: (shippingObj) => dispatch(submitOrder(shippingObj))

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Order, Product, OrderProduct, User} = require('../db/models')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 module.exports = router
 
 const updateCart = async (user, next, session) => {
@@ -7,7 +8,7 @@ const updateCart = async (user, next, session) => {
   //   const [order, created] = await Order.findOrCreate({
   //     where: {
   //       isCart: true,
-  //       userId: user.id
+  //       userId: user.idå
   //     }
   //   })
   //   session.order = order.toJSON()
@@ -40,11 +41,22 @@ router.post('/create', async (req, res, next) => {
   try {
     let userId = (req.user) ? req.user.id : null
     const order = await Order.create({isCart: false, userId: userId});
+    let sum = 0;
     await Promise.all(
       req.session.cart.map((prod, i) => {
         OrderProduct.create({productId: prod.id, orderId: order.id, quantity: req.session.quantity[i], price: prod.price, name: prod.name})
+        sum = +(req.session.quantity[i] * prod.price) * 100
       })
     )
+    const token = req.body.id;
+
+    const charge = stripe.charges.create({
+        amount: sum,
+        currency: 'usd',
+        description: 'Items purchased',
+        source: token
+    })
+
     req.session.cart = [];
     req.session.quantity = [];
     res.json({cart: req.session.cart, quantity: req.session.quantity})
