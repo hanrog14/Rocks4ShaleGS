@@ -5,6 +5,10 @@ const Order = db.define('order', {
   isCart: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
+  },
+  shippingStatus: {
+    type: Sequelize.ENUM('processing', 'shipped'),
+    defaultValue: 'processing'
   }
 })
 

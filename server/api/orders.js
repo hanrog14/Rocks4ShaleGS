@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Product, OrderProduct} = require('../db/models')
+const {Order, Product, OrderProduct, User} = require('../db/models')
 module.exports = router
 
 const updateCart = async (user, next, session) => {
@@ -51,17 +51,30 @@ router.post('/create', async (req, res, next) => {
   } catch (err) {next(err)}
 })
 
-// router.delete('/clear', (req, res) => {
-//   req.session.cart = null
-//   req.session.quantity = null
-//   res.json({cart: req.session.cart, quantity: req.session.quantity})
-// })
-
 router.get('/', async (req, res, next) => {
-  if (!req.session.cart) {
-    await updateCart(req.user, next, req.session)
+  try{
+    if (!req.session.cart) {
+      await updateCart(req.user, next, req.session)
+    }
+    res.json({cart: req.session.cart, quantity: req.session.quantity})
   }
-  res.json({cart: req.session.cart, quantity: req.session.quantity})
+  catch(err) {
+    next(err)
+  }
+})
+
+router.get('/history', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        isCart: false
+      }
+    })
+    res.json(orders)
+  }
+  catch(err) {
+    next(err)
+  }
 })
 
 router.delete('/remove/:id', (req, res) => {

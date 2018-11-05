@@ -16,7 +16,7 @@ class OrderHistory extends React.Component {
           <br/>
           {this.props.orderProducts.map(product => (
             <div key={product.productId}>
-              <h4>Name: {product.name} Quantity: {product.quantity} Price: {product.price}</h4>
+              <h4>Name: {product.name} Quantity: {product.quantity} Price: ${product.price}</h4>
             </div>
           ))}
       </div> :
