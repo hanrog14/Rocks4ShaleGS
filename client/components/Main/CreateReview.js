@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {addReview} from '../store/product'
+import {addReview} from '../../store/product'
 import {connect} from 'react-redux'
 
 class CreateReview extends Component {

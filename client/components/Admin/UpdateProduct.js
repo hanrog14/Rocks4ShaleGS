@@ -1,6 +1,6 @@
 import CreateUpdateForm from './CreateUpdateForm'
 import {connect} from 'react-redux'
-import {updateProduct} from '../store/product'
+import {updateProduct} from '../../store/product'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

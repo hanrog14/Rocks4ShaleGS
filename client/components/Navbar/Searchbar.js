@@ -1,5 +1,5 @@
 import React from 'react'
-import history from '../history'
+import history from '../../history'
 
 export default class Searchbar extends React.Component {
   constructor() {

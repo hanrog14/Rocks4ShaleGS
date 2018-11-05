@@ -5,7 +5,7 @@ import {
   getWholeCart,
   addItemToOrder,
   updateItem
-} from '../store/order'
+} from '../../store/order'
 import {Link} from 'react-router-dom'
 
 class CartList extends React.Component {
