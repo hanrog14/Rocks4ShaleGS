@@ -21,6 +21,8 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// const isAdminMW = (req, res, next) => req.user.isAdmin ? next() : res.send('Forbidden')
+// ------------\/ PUT IN HERE
 router.post('/', async (req, res, next) => {
   try{
       const product = await Product.create(req.body);

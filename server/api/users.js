@@ -15,3 +15,18 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+
+// router.post('/', async() => {
+//   // name : 'Black Hat', isAdmin : 'true'
+//   let {name, email} = req.body
+//   User.create({name , email})
+// })
+
+/*
+Toast notifications
+promocode
+heroku stripe
+proper auth controls
+
+*/
