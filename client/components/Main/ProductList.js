@@ -47,11 +47,12 @@ class ProductList extends React.Component {
           {this.props.isAdmin && (
             <Link to="/tasks">
               <button type="submit" className="admin-orders-view">
-              Admin Orders View
+                Admin Orders View
               </button>
             </Link>
           )
           }
+
           <div className="row">
             <br />
             {products.map(eachProduct => (
@@ -66,13 +67,14 @@ class ProductList extends React.Component {
                 <br />
                 {
                   !eachProduct.inventory ?
-                <button
-                className="sold-out-inventory"
-                type="button"
-                disabled="true"
-              >
-                Sold Out!
+                    <button
+                      className="sold-out-inventory"
+                      type="button"
+                      disabled="true"
+                    >
+                      Sold Out!
               </button>
+
                 :
                 <button
                   className="add-to-cart"
@@ -81,7 +83,7 @@ class ProductList extends React.Component {
                 >
                   Add To Cart
                 </button>
-              }
+                }
                 <br />
                 {this.props.isAdmin && (
                   <Link
