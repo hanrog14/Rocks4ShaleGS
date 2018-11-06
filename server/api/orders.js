@@ -3,7 +3,7 @@ const {Order, Product, OrderProduct, User} = require('../db/models')
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 module.exports = router
 
-const updateCart = async (user, next, session) => {
+const updateCart = (user, next, session) => {
   // if (user) {
   //   const [order, created] = await Order.findOrCreate({
   //     where: {
@@ -75,10 +75,10 @@ router.post('/create', async (req, res, next) => {
   } catch (err) {next(err)}
 })
 
-router.get('/', async (req, res, next) => {
+router.get('/cart', async (req, res, next) => {
   try{
     if (!req.session.cart) {
-      await updateCart(req.user, next, req.session)
+      updateCart(req.user, next, req.session)
     }
     res.json({cart: req.session.cart, quantity: req.session.quantity})
   }
@@ -111,7 +111,7 @@ router.delete('/remove/:id', (req, res) => {
 router.get('/add/:id', async (req, res, next) => {
   try {
     if (!req.session.cart) {
-      await updateCart(req.user, next, req.session)
+      updateCart(req.user, next, req.session)
     }
     const cartIdx = getCartIndex(req.params.id, req.session.cart)
     if (cartIdx >= 0) {
