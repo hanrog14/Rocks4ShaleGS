@@ -11,9 +11,7 @@ class OrderHistory extends React.Component {
 
   render() {
     return (
-
       this.props.prevOrders ?
-
         this.props.prevOrders.length ?
           <div className="order-history">
             <h2>ORDER HISTORY</h2>

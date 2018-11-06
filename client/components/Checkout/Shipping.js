@@ -13,10 +13,10 @@ class Billing extends Component {
   render() {
       return (
       <StripeCheckout
+        stripeKey='pk_test_4CxUYON5SPh3lzAPzarC3fZI'
         token={this.onToken}
         billingAddress={true}
         shippingAddress={true}
-        stripeKey="pk_test_4CxUYON5SPh3lzAPzarC3fZI"
       />
       )
   }
