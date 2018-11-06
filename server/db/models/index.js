@@ -7,7 +7,7 @@ const Sequelize = require('sequelize')
 
 const OrderProduct = db.define('orderProduct', {
   quantity: Sequelize.STRING,
-  price: Sequelize.STRING,
+  price: Sequelize.INTEGER,
   name: Sequelize.STRING
 })
 

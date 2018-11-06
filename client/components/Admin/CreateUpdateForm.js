@@ -69,7 +69,7 @@ export default class CreateUpdateProduct extends Component {
               />
             </div>
             <div className="inputElem">
-              <label>Price</label>
+              <label>Price (input in cents)</label>
               <input
                   type="text"
                   name="price"
