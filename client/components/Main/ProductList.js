@@ -4,6 +4,7 @@ import { fetchProducts } from '../../store/product'
 import { addItemToOrder } from '../../store/order'
 import { NotFoundComponent } from './NotFoundComponent'
 import { Link } from 'react-router-dom'
+import Notifications, {notify} from 'react-notify-toast';
 
 const possibleCategories = [
   'Miscellaneous',
@@ -32,6 +33,7 @@ class ProductList extends React.Component {
     }
     return possibleCategories.includes(category) || name ? (
       <div className="all-product-outer-wrapper">
+      <Notifications />
         {category && <h3>{`${category.toUpperCase()} PRODUCTS`}</h3>}
         <div className="all-product-container">
           {this.props.isAdmin && (
@@ -72,13 +74,14 @@ class ProductList extends React.Component {
                     >
                       Sold Out!
               </button>
-                    :
-                    <button
-                      className="add-to-cart"
-                      type="button"
-                      onClick={() => this.props.addToCart(eachProduct.id)}
-                    >
-                      Add To Cart
+
+                :
+                <button
+                  className="add-to-cart"
+                  type="button"
+                  onClick={() => {this.props.addToCart(eachProduct.id); notify.show(`${eachProduct.name} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})}}
+                >
+                  Add To Cart
                 </button>
                 }
                 <br />
