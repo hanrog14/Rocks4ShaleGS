@@ -26,21 +26,19 @@ class ProductList extends React.Component {
     return (
       possibleCategories.includes(category) || name ?
 
-        <div>
-          {category && <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>}
+        <div className="all-product-outer-wrapper">
+          {category && <h3>{`${category.toUpperCase()} PRODUCTS`}</h3>}
           <div className="all-product-container">
-            {this.props.isAdmin && <Link to="../../products/create"><button type="submit">Create new Product</button></Link>}
+            {this.props.isAdmin && <Link to="../../products/create"><button type="submit" className="create-new-product">Create new Product</button></Link>}
             <div className="row">
               <br/>
               {products.map(eachProduct => (
                 <div className="column" key={eachProduct.name}>
                   <Link to={`../../products/${eachProduct.id}`}><img className="column-image" src={eachProduct.pictureUrl} /></Link>
-                  <br />
-                  Name: <Link to={`../../products/${eachProduct.id}`}>{eachProduct.name}</Link>
-                  <br />
-                  Price: ${eachProduct.price}
+                  <Link to={`../../products/${eachProduct.id}`}><h2>{eachProduct.name}</h2></Link>
+                  ${eachProduct.price}
                   <br/>
-                  <button type="button" onClick={() => this.props.addToCart(eachProduct.id)}>Add To Cart</button>
+                  <button className="add-to-cart" type="button" onClick={() => this.props.addToCart(eachProduct.id)}>Add To Cart</button>
                   <br />
                   {this.props.isAdmin && <Link to={{pathname: `../../products/${eachProduct.id}/update`, state: eachProduct}}>Edit</Link>}
                   <br />
