@@ -15,6 +15,7 @@ class CartList extends React.Component {
   }
 
   componentDidMount() {
+    console.log('COMPONENT MOUNTED')
     this.props.getWholeCart()
   }
 
@@ -25,6 +26,7 @@ class CartList extends React.Component {
   }
 
   render() {
+    console.log('COMPONENT RENDERED')
     let productCartArray = this.props.products
     let cartTotal = 0;
 
@@ -49,7 +51,7 @@ class CartList extends React.Component {
               defaultValue={this.props.quantity[i]}
               onChange={event => this.handleChange(event, i)}
             >
-              {new Array(item.inventory).fill().map((elem, idx) => {
+              {new Array(item.inventory > 10 ? 10 : item.inventory).fill().map((elem, idx) => {
                 return (
                   <option key={idx} value={1 + idx}>
                     {1 + idx}

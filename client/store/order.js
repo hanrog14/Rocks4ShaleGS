@@ -18,7 +18,7 @@ const getCurrentOrder = products => ({type: GET_ORDER, products})
 
 export const getWholeCart = () => async dispatch => {
   try {
-    const res = await axios.get('/api/orders')
+    const res = await axios.get('/api/orders/cart')
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
