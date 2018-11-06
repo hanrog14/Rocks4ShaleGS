@@ -5,6 +5,7 @@ import {getSelectedProduct} from '../../store/product'
 import {addItemToOrder} from '../../store/order'
 import {Link} from 'react-router-dom'
 import {NotFoundComponent} from './NotFoundComponent'
+import Notifications, {notify} from 'react-notify-toast';
 
 /**
  * COMPONENT
@@ -17,6 +18,7 @@ class SingleProduct extends Component {
   render() {
     return (
       <div className="single-product-page">
+      <Notifications />
       { this.props.product ?
         <div>
           <Link to='/products/category/all'>Back To Shop</Link>
@@ -36,7 +38,7 @@ class SingleProduct extends Component {
                   <button
                     type="button"
                     className="add-to-cart"
-                    onClick={() => this.props.addToCart(this.props.product.id)}
+                    onClick={() => {this.props.addToCart(this.props.product.id);notify.show(`${this.props.product.name} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})}}
                   >
                     Add To Cart
                   </button>
