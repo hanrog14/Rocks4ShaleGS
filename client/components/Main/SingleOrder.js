@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrder} from '../store/order'
+import {fetchOrder} from '../../store/order'
 
 class OrderHistory extends React.Component {
 
@@ -16,7 +16,7 @@ class OrderHistory extends React.Component {
           <br/>
           {this.props.orderProducts.map(product => (
             <div key={product.productId}>
-              <h4>Name: {product.name} Quantity: {product.quantity} Price: {product.price}</h4>
+              <h4>Name: {product.name} Quantity: {product.quantity} Price: ${product.price}</h4>
             </div>
           ))}
       </div> :

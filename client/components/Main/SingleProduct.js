@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getSelectedProduct} from '../store/product'
+import {getSelectedProduct} from '../../store/product'
 import {Link} from 'react-router-dom'
 
 /**

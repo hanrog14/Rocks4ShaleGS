@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrderHistory} from '../store/order'
+import {fetchOrderHistory} from '../../store/order'
 import {Link} from 'react-router-dom'
 
 class OrderHistory extends React.Component {

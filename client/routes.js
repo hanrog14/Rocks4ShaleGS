@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleProduct, ProductList, CartList, CreateProduct, UpdateProduct, CreateReview, BillingForm, Confirmation, OrderHistory, SingleOrder} from './components'
+import {Login, Signup, UserHome, SingleProduct, ProductList, CartList, CreateProduct, UpdateProduct, CreateReview, Confirmation, OrderHistory, SingleOrder, AdminOrdersView, Shipping} from './components'
 import {me} from './store'
 
 /**
@@ -17,6 +17,7 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
+<<<<<<< HEAD
       <div className="main-container">
         <Switch>
           {/* Routes placed here are available to all visitors */}
@@ -41,6 +42,32 @@ class Routes extends Component {
           <Redirect to='/products/category/all'/>
         </Switch>
       </div>
+=======
+      <Switch>
+        {/* Routes placed here are available to all visitors */}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={CartList} />
+        <Route path='/tasks' component={AdminOrdersView} />
+        <Route path='/confirmation' component={Confirmation} />
+        <Route path="/history/:id" component={OrderHistory} />
+        <Route path="/orders/:id" component={SingleOrder} />
+        <Route path="/products/create" component={CreateProduct} />
+        <Route path="/products/:id/review" component={CreateReview} />
+        <Route path="/products/:id/update" component={UpdateProduct} />
+        <Route path='/products/category/:category' component={ProductList} />
+        <Route path='/products/name/:name' component={ProductList} />
+        <Route path="/products/:id" component={SingleProduct} />
+        <Route path="/checkout" component={Shipping} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+          </Switch>
+        )}
+        <Redirect to='/products/category/all'/>
+      </Switch>
+>>>>>>> origin
     )
   }
 }

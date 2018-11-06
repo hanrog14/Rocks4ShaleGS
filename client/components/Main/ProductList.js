@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/product'
-import {addItemToOrder} from '../store/order'
+import {fetchProducts} from '../../store/product'
+import {addItemToOrder} from '../../store/order'
 import {NotFoundComponent} from './NotFoundComponent'
 import {Link} from 'react-router-dom'
 
@@ -15,18 +15,26 @@ class ProductList extends React.Component {
 
   render() {
     const category = this.props.match.params.category;
+    const name = this.props.match.params.name;
     let products = this.props.products;
-    if (category !== 'all') {
+
+    if (name) {
+      products = this.props.products.filter(prod => prod.name.toLowerCase() === name.toLowerCase());
+    } else if (category !== 'all') {
       products = this.props.products.filter(prod => prod.category === category);
     }
     return (
-      possibleCategories.includes(category) ?
+      possibleCategories.includes(category) || name ?
 
         <div>
+<<<<<<< HEAD:client/components/ProductList.js
           {/* <div className="page-title-container" style={backgroundImage:`/images/${category}.jpg`} > */}
             <h2> {`${category.toUpperCase()} PRODUCTS`}</h2>
             <img className="column-image" src={`/images/${category}.jpg`} />
           {/* </div> */}
+=======
+          {category && <h2>{`${category.toUpperCase()} PRODUCTS`}</h2>}
+>>>>>>> origin:client/components/Main/ProductList.js
           <div className="all-product-container">
             {this.props.isAdmin && <Link to="../../products/create"><button type="submit">Create new Product</button></Link>}
             <div className="row">

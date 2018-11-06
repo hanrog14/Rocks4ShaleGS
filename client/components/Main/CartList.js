@@ -1,64 +1,77 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeItemToOrder, getWholeCart, addItemToOrder, updateItem} from '../store/order'
+import {
+  removeItemToOrder,
+  getWholeCart,
+  addItemToOrder,
+  updateItem
+} from '../../store/order'
 import {Link} from 'react-router-dom'
 
 class CartList extends React.Component {
   constructor(props) {
     super(props)
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.getWholeCart()
+    console.log('THIS: ', this.props)
   }
 
   handleChange(event, i) {
-    event.preventDefault();
+    event.preventDefault()
     this.props.quantity[i] = parseInt(event.target.value, 10)
     this.props.updateItem(this.props.products, this.props.quantity)
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.props.getWholeCart()
   }
 
   render() {
     let productCartArray = this.props.products
+    let cartTotal = 0;
     let arrayRender = productCartArray.map((item, i) => {
+      cartTotal += item.price * this.props.quantity[i]
       return (
         <div className="no-break" key={item.id}>
           <form id="update-quantity" onSubmit={this.handleSubmit}>
             {'NAME: ' + item.name}: {'PRICE: ' + item.price}: QUANTITY:
-            <select defaultValue={this.props.quantity[i]} onChange={(event) => this.handleChange(event, i)}>{
-              new Array(item.inventory).fill().map((elem, idx) => {
-                return <option key={idx} value={1+idx}>{1+idx}</option>
-              })
-            }</select>
-            <button type="submit">
-              Update
-            </button>
+            <select
+              defaultValue={this.props.quantity[i]}
+              onChange={event => this.handleChange(event, i)}
+            >
+              {new Array(item.inventory).fill().map((elem, idx) => {
+                return (
+                  <option key={idx} value={1 + idx}>
+                    {1 + idx}
+                  </option>
+                )
+              })}
+            </select>
+            <button type="submit">Update</button>
             <button
               type="button"
               onClick={() => this.props.removeItemToOrder(item.id)}
             >
               x
             </button>
-
           </form>
           <br />
         </div>
       )
     })
-
     return (
       <div>
+        <h3>{cartTotal}</h3>
         <h1>Cart:</h1>
         <ul>{arrayRender}</ul>
-        <Link to="/checkout"><button type="button">Checkout</button></Link>
+        <Link to="/checkout">
+          <button type="button">Checkout</button>
+        </Link>
       </div>
     )
   }

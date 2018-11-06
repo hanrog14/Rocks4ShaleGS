@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {Order, Product, OrderProduct} = require('../db/models')
+const {Order, Product, OrderProduct, User} = require('../db/models')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 module.exports = router
 
 const updateCart = async (user, next, session) => {
@@ -7,7 +8,7 @@ const updateCart = async (user, next, session) => {
   //   const [order, created] = await Order.findOrCreate({
   //     where: {
   //       isCart: true,
-  //       userId: user.id
+  //       userId: user.idå
   //     }
   //   })
   //   session.order = order.toJSON()
@@ -40,28 +41,52 @@ router.post('/create', async (req, res, next) => {
   try {
     let userId = (req.user) ? req.user.id : null
     const order = await Order.create({isCart: false, userId: userId});
+    let sum = 0;
     await Promise.all(
       req.session.cart.map((prod, i) => {
         OrderProduct.create({productId: prod.id, orderId: order.id, quantity: req.session.quantity[i], price: prod.price, name: prod.name})
+        sum = +(req.session.quantity[i] * prod.price) * 100
       })
     )
-    req.session.cart = null
-    req.session.quantity = null
+    const token = req.body.id;
+
+    const charge = stripe.charges.create({
+        amount: sum,
+        currency: 'usd',
+        description: 'Items purchased',
+        source: token
+    })
+
+    req.session.cart = [];
+    req.session.quantity = [];
     res.json({cart: req.session.cart, quantity: req.session.quantity})
   } catch (err) {next(err)}
 })
 
-// router.delete('/clear', (req, res) => {
-//   req.session.cart = null
-//   req.session.quantity = null
-//   res.json({cart: req.session.cart, quantity: req.session.quantity})
-// })
-
 router.get('/', async (req, res, next) => {
-  if (!req.session.cart) {
-    await updateCart(req.user, next, req.session)
+  try{
+    if (!req.session.cart) {
+      await updateCart(req.user, next, req.session)
+    }
+    res.json({cart: req.session.cart, quantity: req.session.quantity})
   }
-  res.json({cart: req.session.cart, quantity: req.session.quantity})
+  catch(err) {
+    next(err)
+  }
+})
+
+router.get('/history', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        isCart: false
+      }
+    })
+    res.json(orders)
+  }
+  catch(err) {
+    next(err)
+  }
 })
 
 router.delete('/remove/:id', (req, res) => {
