@@ -29,7 +29,7 @@ class SingleProduct extends Component {
               <div className="single-product-text">
               <h3>{this.props.product.name}</h3>
               <p>{this.props.product.description}</p>
-              <p>Price: ${this.props.product.price}</p>
+              <p>Price: ${Number.parseFloat(this.props.product.price/100).toFixed(2)}</p>
               <button
                 type="button"
                 className="add-to-cart"

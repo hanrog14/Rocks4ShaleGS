@@ -7,26 +7,84 @@ body {
 a {
   text-decoration: none;
 }
-
+/*
 a:visited {
   color: #003366;
-}
+} */
 
-a:link {
+/* a:link {
   color: #003366;
-}
+} */
 
-a:hover {
+/* a:hover {
   color: #0073e6;
+} */
+
+nav {
+  color: white
 }
 
 label {
   display: block;
 }
 
-nav a {
+li {
+  float: left;
+  color: white
+}
+
+.nav-li {
+  color: white
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(235, 235, 235)
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li:link {
+  color: white
+}
+
+.cart {
+  float: right
+}
+
+h1 {
+  text-align: center
+}
+
+li:hover {
+  background-color: #dadada;
+  color: #242424
+}
+
+.nav-bar {
   display: inline-block;
-  margin: 1em;
+  max-width: 90vw;
+  color: white
+}
+
+.login {
+}
+
+.fixed-nav {
+  position: sticky;
+  top: 0;
+  /* background-color: #f7f7f7; */
+  background-color: #242424;
+  color: white;
+  opacity: .95
 }
 
 form div {
@@ -43,7 +101,7 @@ form div {
 
 .column-image {
   width: 250px;
-  height: auto;
+  height: 187.5px;
 }
 
 .row {
