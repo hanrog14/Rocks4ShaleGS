@@ -58,10 +58,15 @@ form div {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  float: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.no-break {
-  white-space: nowrap;
+.all-product-outer-wrapper {
+  display: block;
 }
 
 .single-image {
@@ -152,4 +157,30 @@ form div {
 
 h3 {
   color:#dbb385
+}
+
+h2 {
+  font-size: 18pt;
+  text-align: left;
+  margin: 0;
+  color: #dbb385;
+}
+
+.create-new-product {
+  background: #4e6091;
+  border: 2px solid #2f3d64;
+  color: #ffffff;
+  outline: none;
+  margin-bottom: 2em;
+  font-size: 10pt
+}
+
+.create-new-product:hover {
+  background: white;
+  border: 2px solid #2f3d64;
+  color: #2f3d64;
+}
+
+h3 {
+  text-align: center
 }
