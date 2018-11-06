@@ -79,7 +79,7 @@ describe('Product model', () => {
         product.price = 'cat' ;
         return product.validate() //play around with update()
         .then(res => console.log("***", res), (err) => {
-            console.log("ERRRRR", err)
+            console.log("Error", err)
         });
       });
 

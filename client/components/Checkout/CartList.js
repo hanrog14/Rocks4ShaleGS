@@ -15,7 +15,6 @@ class CartList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT MOUNTED')
     this.props.getWholeCart()
   }
 
@@ -26,7 +25,6 @@ class CartList extends React.Component {
   }
 
   render() {
-    console.log('COMPONENT RENDERED')
     let productCartArray = this.props.products
     let cartTotal = 0;
 
