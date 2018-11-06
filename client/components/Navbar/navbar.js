@@ -7,19 +7,24 @@ import Searchbar from './Searchbar'
 
 const Navbar = ({handleClick, isLoggedIn, userId, isAdmin}) => {
   return (
-    <div>
-      <h1>Welcome to Rocks 4 Shale!</h1>
+    <div className="fixed-nav">
+      <h1>Rocks 4 Shale</h1>
       <nav>
-        <Link to="/products/category/all">All</Link>
-        <Link to="/products/category/Igneous">Igneous</Link>
-        <Link to="/products/category/Metamorphic">Metamorphic</Link>
-        <Link to="/products/category/Sedimentary">Sedimentary</Link>
-        <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-        <Link to="/cart">Cart</Link>
-        {isAdmin && <Link to="/tasks">Admin Orders View</Link>}
+        <div className="nav-bar">
+        <ul>
+        <li className='nav-li'><Link to="/products/category/all">All</Link></li>
+        <li className='nav-li'><Link to="/products/category/Igneous">Igneous</Link></li>
+        <li className='nav-li'><Link to="/products/category/Metamorphic">Metamorphic</Link></li>
+        <li className='nav-li'><Link to="/products/category/Sedimentary">Sedimentary</Link></li>
+        <li className='nav-li'><Link to="/products/category/Miscellaneous">Miscellaneous</Link></li>
+        <li className='cart'><Link to="/cart">Cart</Link></li>
+        {isAdmin && <li><Link to="/tasks">Admin Orders View</Link></li>}
+        </ul>
         <Searchbar />
+
+        </div>
         {isLoggedIn ? (
-          <div>
+          <div className="login">
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
             <Link to={`/history/${userId}`}>Order History</Link>
@@ -27,6 +32,7 @@ const Navbar = ({handleClick, isLoggedIn, userId, isAdmin}) => {
               Logout
             </a>
           </div>
+
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
@@ -34,6 +40,7 @@ const Navbar = ({handleClick, isLoggedIn, userId, isAdmin}) => {
             <Link to="/signup">Sign Up</Link>
           </div>
         )}
+
       </nav>
       <hr />
     </div>
