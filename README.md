@@ -4,13 +4,13 @@ Hi, we're Rocks 4 Shale, your one stop for artisanal stones and all other constr
 
 _Live site: https://rocks-4-shale.herokuapp.com_
 
-##Developers 
-[Hannah Barton](https://github.com/hannbarton) 
-[Hannah Rogers](https://github.com/hanrog14)
-[Jolene Langlinais](https://github.com/irmerk)
-[Seori Sachs](https://github.com/msbeethoven)
+## Developers 
+- [Hannah Barton](https://github.com/hannbarton) 
+- [Hannah Rogers](https://github.com/hanrog14)
+- [Jolene Langlinais](https://github.com/irmerk)
+- [Seori Sachs](https://github.com/msbeethoven)
 
-##Start 
+## Start 
 To start
 ```
 npm install 
@@ -21,7 +21,7 @@ npm install start-dev
 
 ```
 
-##Stack 
+## Stack 
 Made with:
 - Node 
 - Express 
