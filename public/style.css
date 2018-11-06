@@ -50,3 +50,50 @@ form div {
   /* display: inline-block; */
   white-space: nowrap
 }
+
+#cart {
+  display: flex;
+  margin: 50px;
+  width: calc(100%-100px);
+  flex-direction: column;
+}
+
+#cart-table {
+  border-collapse: collapse;
+  border-top: solid black;
+  border-bottom: solid black;
+}
+
+#cart-table tr {
+  border-top: solid 1px;
+  height: auto;
+  text-align: flex-start;
+}
+
+#cart-table th {
+  text-align: left;
+  padding: 20px;
+}
+
+#cart-table td {
+  padding: 20px;
+}
+
+#cart-table .item-info {
+  display: flex;
+}
+
+#cart-table .item-info img {
+  width: 250px;
+  height: 150px;
+}
+
+#cart-table .item-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#cart-table .item-content h4, p, button {
+  margin: 5px;
+}

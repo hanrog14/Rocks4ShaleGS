@@ -15,7 +15,6 @@ const Navbar = ({handleClick, isLoggedIn, userId, isAdmin}) => {
         <Link to="/products/category/Metamorphic">Metamorphic</Link>
         <Link to="/products/category/Sedimentary">Sedimentary</Link>
         <Link to="/products/category/Miscellaneous">Miscellaneous</Link>
-        <Link to="/checkout">Checkout</Link>
         <Link to="/cart">Cart</Link>
         {isAdmin && <Link to="/tasks">Admin Orders View</Link>}
         <Searchbar />
