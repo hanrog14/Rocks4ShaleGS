@@ -132,7 +132,8 @@ router.get('/:id', async (req, res, next) => {
     const products = await OrderProduct.findAll({
       where: {orderId: req.params.id}
     })
-    res.json(products)
+    const order = await Order.findById(req.params.id)
+    res.json({products, order})
   } catch (err) {
     next(err)
   }
@@ -140,12 +141,16 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/history/:id', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      where: {
-        userId: req.params.id
-      }
-    })
-    res.json(orders)
+    if (req.user && (+req.params.id === +req.user.id)) {
+      const orders = await Order.findAll({
+        where: {
+          userId: req.params.id
+        }
+      })
+      res.json(orders)
+    } else {
+      res.send([])
+    }
   } catch (err) {
     next(err)
   }

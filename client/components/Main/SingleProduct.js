@@ -11,15 +11,26 @@ import Notifications, {notify} from 'react-notify-toast';
  * COMPONENT
  */
 class SingleProduct extends Component {
+  constructor() {
+    super()
+    this.state = {
+      invalidInput: false
+    }
+  }
+
   componentDidMount() {
-    this.props.getProduct(this.props.match.params.id)
+    if( !isNaN(Number(this.props.match.params.id)) ){
+      this.props.getProduct(this.props.match.params.id)
+    } else {
+      this.setState({invalidInput: true})
+    }
   }
 
   render() {
     return (
       <div className="single-product-page">
       <Notifications />
-      { this.props.product ?
+      { this.props.product && !this.state.invalidInput ?
         <div>
           <Link to='/products/category/all'>Back To Shop</Link>
             {this.props.product.id ? (

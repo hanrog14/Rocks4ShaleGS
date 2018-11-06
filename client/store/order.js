@@ -9,7 +9,10 @@ const defaultState = {
   cart: [],
   quantity: [],
   prevOrders: [],
-  curOrderProducts: []
+  curOrderProducts: {
+    products: [],
+    order: {}
+  }
 }
 
 const updateCart = order => ({type: UPDATE_CART, order})
