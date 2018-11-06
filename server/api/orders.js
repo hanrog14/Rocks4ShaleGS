@@ -44,7 +44,19 @@ router.post('/create', async (req, res, next) => {
     let sum = 0;
     await Promise.all(
       req.session.cart.map((prod, i) => {
-        OrderProduct.create({productId: prod.id, orderId: order.id, quantity: req.session.quantity[i], price: prod.price, name: prod.name})
+        Product.update({
+            inventory: prod.inventory - req.session.quantity[i]
+          }, {
+            where: { id: prod.id }
+          }
+        )
+        OrderProduct.create({
+          productId: prod.id,
+          orderId: order.id,
+          quantity: req.session.quantity[i],
+          price: prod.price,
+          name: prod.name
+        })
         sum = +(req.session.quantity[i] * prod.price)
       })
     )

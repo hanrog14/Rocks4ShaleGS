@@ -53,6 +53,16 @@ class ProductList extends React.Component {
                 </Link>
                 ${Number.parseFloat(eachProduct.price / 100).toFixed(2)}
                 <br />
+                {
+                  !eachProduct.inventory ?
+                <button
+                className="sold-out-inventory"
+                type="button"
+                disabled="true"
+              >
+                Sold Out!
+              </button>
+                :
                 <button
                   className="add-to-cart"
                   type="button"
@@ -60,6 +70,7 @@ class ProductList extends React.Component {
                 >
                   Add To Cart
                 </button>
+              }
                 <br />
                 {this.props.isAdmin && (
                   <Link
