@@ -8,4 +8,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreateUpdateForm)
+const mapStateToProps = (state) => {
+  return {
+   user: state.user
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUpdateForm)

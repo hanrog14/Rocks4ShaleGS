@@ -21,11 +21,20 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-// const isAdminMW = (req, res, next) => req.user.isAdmin ? next() : res.send('Forbidden')
-// ------------\/ PUT IN HERE
-router.post('/', async (req, res, next) => {
+const isAdminMW = (req, res, next) => (req.user && req.user.adminStatus) ? next() : res.alert('Forbidden')
+
+router.post('/', isAdminMW, async (req, res, next) => {
+  
   try{
-      const product = await Product.create(req.body);
+
+      const product = await Product.create({
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        inventory: req.body.inventory,
+        category: req.body.category,
+        pictureUrl: req.body.pictureUrl
+      });
       res.json(product)
   }
   catch(err) {
