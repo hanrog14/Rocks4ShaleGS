@@ -28,27 +28,45 @@ label {
   display: block;
 }
 
-li {
+/* li {
   float: left;
-  color: white
-}
+  color: white;
+  vertical-align: middle;
+
+} */
 
 .nav-li {
-  color: white
+  float: left;
+  color: white;
+  vertical-align: middle;
+}
+
+.searchbar {
+  float: right;
+  color: white;
+  vertical-align: middle;
+}
+
+#nav-home {
+  font-size: 20pt;
+  font-weight: bold;
+  color: white;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bolder;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: rgb(235, 235, 235)
+  background-color: #242424;
 }
 
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 16px 16px;
   text-decoration: none;
 }
 
@@ -56,35 +74,40 @@ li:link {
   color: white
 }
 
-.cart {
-  float: right
+.user-nav {
+  color: white;
+  background-color: #242424;
+  font-size: 9pt;
+  float: right;
+  overflow: hidden;
+}
+
+.login{
+  margin-top: -35px;
+  background-color: #242424;
+  overflow: hidden
 }
 
 h1 {
   text-align: center
 }
 
-li:hover {
+.nav-li li:hover{
   background-color: #dadada;
-  color: #242424
+  color: #242424;
+  margin-top: 4px;
 }
-
 .nav-bar {
-  display: inline-block;
-  max-width: 90vw;
+  overflow: hidden;
   color: white
-}
-
-.login {
 }
 
 .fixed-nav {
   position: sticky;
   top: 0;
-  /* background-color: #f7f7f7; */
   background-color: #242424;
   color: white;
-  opacity: .95
+  opacity: 0.5
 }
 
 form div {
@@ -124,7 +147,7 @@ form div {
 }
 
 .all-product-outer-wrapper {
-  display: block;
+
 }
 
 .single-image {
@@ -231,6 +254,16 @@ h2 {
   outline: none;
   margin-bottom: 2em;
   font-size: 10pt
+}
+
+.admin-orders-view {
+  background: #FF3333;
+  border: 2px solid #FF0000;
+  color: #ffffff;
+  outline: none;
+  margin-bottom: 2em;
+  font-size: 10pt;
+  margin-right: 4em;
 }
 
 .create-new-product:hover {

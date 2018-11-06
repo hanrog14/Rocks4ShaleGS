@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {fetchProducts} from '../../store/product'
-import {addItemToOrder} from '../../store/order'
-import {NotFoundComponent} from './NotFoundComponent'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchProducts } from '../../store/product'
+import { addItemToOrder } from '../../store/order'
+import { NotFoundComponent } from './NotFoundComponent'
+import { Link } from 'react-router-dom'
 
 const possibleCategories = [
   'Miscellaneous',
@@ -37,10 +37,19 @@ class ProductList extends React.Component {
           {this.props.isAdmin && (
             <Link to="../../products/create">
               <button type="submit" className="create-new-product">
-                Create new Product
+                Create New Product
               </button>
             </Link>
-          )}
+          )
+          }
+          {this.props.isAdmin && (
+            <Link to="/tasks">
+              <button type="submit" className="admin-orders-view">
+              Admin Orders View
+              </button>
+            </Link>
+          )
+          }
           <div className="row">
             <br />
             {products.map(eachProduct => (
@@ -89,8 +98,8 @@ class ProductList extends React.Component {
         </div>
       </div>
     ) : (
-      <NotFoundComponent />
-    )
+        <NotFoundComponent />
+      )
   }
 }
 
