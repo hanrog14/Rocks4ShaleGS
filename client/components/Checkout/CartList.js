@@ -3,21 +3,19 @@ import {connect} from 'react-redux'
 import {
   removeItemToOrder,
   getWholeCart,
-  addItemToOrder,
   updateItem
 } from '../../store/order'
 import {Link} from 'react-router-dom'
+import Billing from './Shipping'
 
 class CartList extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.getWholeCart()
-    console.log('THIS: ', this.props)
   }
 
   handleChange(event, i) {
@@ -26,20 +24,27 @@ class CartList extends React.Component {
     this.props.updateItem(this.props.products, this.props.quantity)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    this.props.getWholeCart()
-  }
-
   render() {
     let productCartArray = this.props.products
     let cartTotal = 0;
+
     let arrayRender = productCartArray.map((item, i) => {
       cartTotal += item.price * this.props.quantity[i]
       return (
-        <div className="no-break" key={item.id}>
-          <form id="update-quantity" onSubmit={this.handleSubmit}>
-            {'NAME: ' + item.name}: {'PRICE: ' + item.price}: QUANTITY:
+        <tr key={item.id}>
+          <td className="item-info">
+            <img src={item.pictureUrl} />
+            <div className="item-content">
+              <h4>Rocks For Shale</h4>
+              <p>{item.name}</p>
+              <p>{item.category}</p>
+              <button type="button" onClick={() => this.props.removeItemToOrder(item.id)}>Remove Item</button>
+            </div>
+          </td>
+          <td>
+            {item.price}
+          </td>
+          <td>
             <select
               defaultValue={this.props.quantity[i]}
               onChange={event => this.handleChange(event, i)}
@@ -52,26 +57,34 @@ class CartList extends React.Component {
                 )
               })}
             </select>
-            <button type="submit">Update</button>
-            <button
-              type="button"
-              onClick={() => this.props.removeItemToOrder(item.id)}
-            >
-              x
-            </button>
-          </form>
-          <br />
-        </div>
+          </td>
+          <td>
+            {item.price*this.props.quantity[i]}
+          </td>
+        </tr>
       )
     })
     return (
       <div>
-        <h3>{cartTotal}</h3>
-        <h1>Cart:</h1>
-        <ul>{arrayRender}</ul>
-        <Link to="/checkout">
-          <button type="button">Checkout</button>
-        </Link>
+      { this.props.products.length ?
+        <div id="cart">
+          <h3>My Bag</h3>
+          <table id="cart-table">
+            <tbody>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+              </tr>
+              {arrayRender}
+            </tbody>
+          </table>
+          <h3>Subtotal: {cartTotal}</h3>
+          <Billing />
+        </div> :
+        <h1>No current items in bag</h1>
+      }
       </div>
     )
   }
@@ -85,7 +98,6 @@ const mapStatetoProps = state => ({
 const mapDispatchToProps = dispatch => ({
   removeItemToOrder: id => dispatch(removeItemToOrder(id)),
   getWholeCart: () => dispatch(getWholeCart()),
-  addItemToOrder: () => dispatch(addItemToOrder()),
   updateItem: (cart, products) => dispatch(updateItem(cart, products))
 })
 
