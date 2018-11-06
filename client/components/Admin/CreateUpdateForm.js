@@ -40,7 +40,6 @@ export default class CreateUpdateProduct extends Component {
   }
 
   render() {
-    console.log("this is props", this.props.user.adminStatus)
     const isAdmin = this.props.user.adminStatus
     return (
       <div>
