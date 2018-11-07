@@ -66,7 +66,7 @@ class ProductList extends React.Component {
                 ${Number.parseFloat(eachProduct.price / 100).toFixed(2)}
                 <br />
                 {
-                  !eachProduct.inventory ?
+                  (eachProduct.inventory <= 0) ?
                     <button
                       className="sold-out-inventory"
                       type="button"
