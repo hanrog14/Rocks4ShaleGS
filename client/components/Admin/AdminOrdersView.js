@@ -16,23 +16,23 @@ class AdminOrdersView extends React.Component {
         eachOrder => eachOrder.shippingStatus === 'shipped'
       )
     return (
-      <div>
-        <h2>List of Open Orders to be Shipped</h2>
+      <div className="order-history">
+        <h3>List of Open Orders to be Shipped</h3>
         <ul>
           {filtered.map(eachOrder => {
             return (
-              <li key={eachOrder.id}>
+              <ol key={eachOrder.id}>
                   OrderID: #<Link to={`/orders/${eachOrder.id}`}>
                 {eachOrder.id}
                 </Link>
                 {" "}
                 Status: {eachOrder.shippingStatus}
-              </li>
+              </ol>
             )
           })}
         </ul>
-
-        <h2>List of Shipped Orders</h2>
+        <br/>
+        <h3>List of Past Shipped Orders</h3>
         {filteredClosed.map(eachOrder => {
             return (
               <li key={eachOrder.id}>
