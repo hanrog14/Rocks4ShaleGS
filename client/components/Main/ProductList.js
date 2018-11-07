@@ -19,6 +19,7 @@ class ProductList extends React.Component {
     this.props.fetchAllProducts()
   }
 
+  //eslint-disable-next-line
   render() {
     const category = this.props.match.params.category
     const name = this.props.match.params.name
