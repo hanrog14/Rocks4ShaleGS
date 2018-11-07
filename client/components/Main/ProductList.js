@@ -31,7 +31,7 @@ class ProductList extends React.Component {
     } else if (category !== 'all') {
       products = this.props.products.filter(prod => prod.category === category)
     }
-    return possibleCategories.includes(category) || name ? (
+    return (possibleCategories.includes(category) || name) && products.length ? (
       <div className="all-product-outer-wrapper">
       <Notifications />
         {category && <h3>{`${category.toUpperCase()} PRODUCTS`}</h3>}

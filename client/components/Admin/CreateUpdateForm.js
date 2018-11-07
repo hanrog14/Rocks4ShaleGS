@@ -19,7 +19,7 @@ export default class CreateUpdateProduct extends Component {
   componentDidMount(){
     setTimeout(() => this.setState({
       loading: false
-    }), 0); //takes 0 seconds
+    }), 0);
   }
 
   handleChange(event) {

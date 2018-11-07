@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { logout } from '../../store'
 import Searchbar from './Searchbar'
 
-const Navbar = ({ handleClick, isLoggedIn, userId, isAdmin }) => {
+const Navbar = ({ handleClick, isLoggedIn, userId }) => {
   return (
     <div className="fixed-nav">
       <nav>
@@ -17,20 +17,15 @@ const Navbar = ({ handleClick, isLoggedIn, userId, isAdmin }) => {
             <li className='nav-li'><Link to="/products/category/Sedimentary">Sedimentary</Link></li>
             <li className='nav-li'><Link to="/products/category/Miscellaneous">Miscellaneous</Link></li>
           </ul>
-
           <ul>
             <li className='searchbar'> <Searchbar /> </li>
           </ul>
-
-          {/* {isAdmin && <ul><li><Link to="/tasks">Admin Orders View</Link></li></ul>} */}
-
         </div>
         {isLoggedIn ? (
 
           <div className="login">
             <ul>
               <li className='user-nav'><Link to="/cart">🛒</Link></li>
-              {/* The navbar will show these links after you log in */}
               <li className='user-nav'><Link to="/home">Home</Link></li>
               <li className='user-nav'><Link to={`/history/${userId}`}>Order History</Link></li>
               <li className='user-nav'><a href="#" onClick={handleClick}>
@@ -43,7 +38,6 @@ const Navbar = ({ handleClick, isLoggedIn, userId, isAdmin }) => {
         ) : (
             <div className="login">
               <ul>
-                {/* The navbar will show these links before you log in */}
                 <li className='user-nav'><Link to="/cart">🛒</Link></li>
                 <li className='user-nav'><Link to="/login">Login</Link></li>
                 <li className='user-nav'><Link to="/signup">Sign Up</Link></li>
