@@ -5,7 +5,6 @@ import {
   getWholeCart,
   updateItem
 } from '../../store/order'
-import {Link} from 'react-router-dom'
 import Billing from './Shipping'
 
 class CartList extends React.Component {

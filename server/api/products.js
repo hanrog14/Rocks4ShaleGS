@@ -24,9 +24,7 @@ router.get('/:id', async (req, res, next) => {
 const isAdminMW = (req, res, next) => (req.user && req.user.adminStatus) ? next() : res.alert('Forbidden')
 
 router.post('/', isAdminMW, async (req, res, next) => {
-  
   try{
-
       const product = await Product.create({
         name: req.body.name,
         description: req.body.description,

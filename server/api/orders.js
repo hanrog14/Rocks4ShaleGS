@@ -4,28 +4,6 @@ const stripe = require('stripe')(process.env.STRIPE_KEY)
 module.exports = router
 
 const updateCart = (user, next, session) => {
-  // if (user) {
-  //   const [order, created] = await Order.findOrCreate({
-  //     where: {
-  //       isCart: true,
-  //       userId: user.idå
-  //     }
-  //   })
-  //   session.order = order.toJSON()
-  //   session.cart = session.order.products
-  //   session.quantity = session.order.products.map(async product => {
-  //     const joinTable = await Order.findOne({
-  //       where: {
-  //         productId: product.id,
-  //         orderId: order.id
-  //       }
-  //     })
-  //     return joinTable.quantity
-  //   })
-  // } else {
-  //   session.cart = []
-  //   session.quantity = []
-  // }
   session.cart = []
   session.quantity = []
 }
@@ -62,7 +40,7 @@ router.post('/create', async (req, res, next) => {
     )
     const token = req.body.id;
 
-    const charge = stripe.charges.create({
+    stripe.charges.create({
         amount: sum,
         currency: 'usd',
         description: 'Items purchased',
