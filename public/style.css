@@ -7,18 +7,10 @@ body {
 a {
   text-decoration: none;
 }
-/*
-a:visited {
-  color: #003366;
-} */
 
-/* a:link {
-  color: #003366;
-} */
-
-/* a:hover {
-  color: #0073e6;
-} */
+a:hover {
+  color: #dbb385;
+}
 
 nav {
   color: white
@@ -27,13 +19,6 @@ nav {
 label {
   display: block;
 }
-
-/* li {
-  float: left;
-  color: white;
-  vertical-align: middle;
-
-} */
 
 .nav-li {
   float: left;
@@ -59,7 +44,6 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #242424;
 }
 
 li a {
@@ -204,6 +188,19 @@ form div {
 .order-history {
   text-align: center;
   padding: 2em;
+  margin-top: 2em;
+  margin-left: 30%;
+  margin-right: 30%;
+  border: 1px dotted lightgrey;
+}
+
+.inputElem {
+  text-align: center;
+}
+
+.create-review {
+  padding: 2em;
+  margin-top: 2em;
   margin-left: 30%;
   margin-right: 30%;
   border: 1px dotted lightgrey;

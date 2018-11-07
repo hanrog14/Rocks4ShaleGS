@@ -42,7 +42,7 @@ export default class CreateUpdateProduct extends Component {
   render() {
     const isAdmin = this.props.user.adminStatus
     return (
-      <div>
+      <div className="order-history">
         { this.state.loading ? <h1>Loading...</h1>:
            isAdmin ?
 

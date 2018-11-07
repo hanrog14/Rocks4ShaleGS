@@ -33,7 +33,7 @@ class CreateReview extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
+        <div className="create-review">
           <h1>Write your review here!</h1>
           <div className="inputContainer">
             <label>Stars</label>
@@ -45,6 +45,7 @@ class CreateReview extends Component {
               <option value="4">4</option>
               <option value={5}>5</option>
             </select>
+            <br/>
             <div className="inputElem">
               <label>Comments</label>
               <input
@@ -56,8 +57,7 @@ class CreateReview extends Component {
               />
             </div>
           </div>
-        </div>
-        <div>
+          <br/>
           <button type="submit">Submit</button>
           {this.state.errMessage && <h4 id="errMessage">{this.state.errMessage}</h4>}
         </div>
