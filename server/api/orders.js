@@ -113,7 +113,7 @@ router.get('/:id', async (req, res, next) => {
       where: {orderId: req.params.id}
     })
     const order = await Order.findById(req.params.id)
-    if (req.user && (order.userId === req.user.id)) {
+    if (req.user && ((order.userId === req.user.id) || req.user.adminStatus)) {
       res.json({products, order})
     } else {
       res.json({products: [], order: []})
