@@ -114,10 +114,12 @@ router.get('/add/:id', async (req, res, next) => {
       updateCart(req.user, next, req.session)
     }
     const cartIdx = getCartIndex(req.params.id, req.session.cart)
+    const product = await Product.findById(req.params.id)
     if (cartIdx >= 0) {
-      req.session.quantity[cartIdx]++
+      if (req.session.quantity[cartIdx] < product.inventory) {
+        req.session.quantity[cartIdx]++
+      }
     } else {
-      const product = await Product.findById(req.params.id)
       req.session.cart.push(product)
       req.session.quantity.push(1)
     }
@@ -133,7 +135,11 @@ router.get('/:id', async (req, res, next) => {
       where: {orderId: req.params.id}
     })
     const order = await Order.findById(req.params.id)
-    res.json({products, order})
+    if (req.user && (order.userId === req.user.id)) {
+      res.json({products, order})
+    } else {
+      res.json({products: [], order: []})
+    }
   } catch (err) {
     next(err)
   }

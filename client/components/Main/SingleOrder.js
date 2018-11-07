@@ -13,6 +13,7 @@ class OrderHistory extends React.Component {
     let subtotal = 0;
     return (
       this.props.orderProducts ?
+      this.props.orderProducts.products.length ?
       <div>
         <h2>ORDER INFO</h2>
           <br/>
@@ -39,6 +40,7 @@ class OrderHistory extends React.Component {
           </ol>
           Subtotal: ${Number.parseFloat(subtotal/100).toFixed(2)}
       </div> :
+      <h1>Forbidden</h1> :
       <h1>Loading..</h1>
     )
   }

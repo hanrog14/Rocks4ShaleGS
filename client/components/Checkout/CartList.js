@@ -42,11 +42,11 @@ class CartList extends React.Component {
             </div>
           </td>
           <td>
-            {Number.parseFloat(item.price/100).toFixed(2)}
+            ${Number.parseFloat(item.price/100).toFixed(2)}
           </td>
           <td>
             <select
-              defaultValue={this.props.quantity[i]}
+              defaultValue={ Math.min(this.props.quantity[i], item.inventory) }
               onChange={event => this.handleChange(event, i)}
             >
               {new Array(item.inventory > 10 ? 10 : item.inventory).fill().map((elem, idx) => {
@@ -59,7 +59,7 @@ class CartList extends React.Component {
             </select>
           </td>
           <td>
-            {Number.parseFloat((item.price*this.props.quantity[i])/100).toFixed(2)}
+            ${Number.parseFloat((item.price*this.props.quantity[i])/100).toFixed(2)}
           </td>
         </tr>
       )
@@ -80,7 +80,7 @@ class CartList extends React.Component {
               {arrayRender}
             </tbody>
           </table>
-          <h3>Subtotal: {Number.parseFloat(cartTotal/100).toFixed(2)}</h3>
+          <h3>Subtotal: ${Number.parseFloat(cartTotal/100).toFixed(2)}</h3>
           <Billing />
         </div> :
         <h1>No current items in bag</h1>
