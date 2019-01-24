@@ -22,9 +22,8 @@ class AdminOrdersView extends React.Component {
           {filtered.map(eachOrder => {
             return (
               <ol key={eachOrder.id}>
-                  OrderID: #<Link to={`/orders/${eachOrder.id}`}>
-                {eachOrder.id}
-                </Link>
+                OrderID: #
+                <Link to={`/orders/${eachOrder.id}`}>{eachOrder.id}</Link>
                 {" "}
                 Status: {eachOrder.shippingStatus}
               </ol>

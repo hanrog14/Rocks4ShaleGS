@@ -101,11 +101,7 @@ export default function(state = defaultState, action) {
     case GET_ORDER:
       return {...state, curOrderProducts: action.products}
     case UPDATE_CART:
-      return {
-        ...state,
-        cart: action.order.cart,
-        quantity: action.order.quantity
-      }
+      return {...state, cart: action.order.cart, quantity: action.order.quantity}
     case UPDATE_PREV_ORDERS:
       return {...state, prevOrders: action.orders}
     default:

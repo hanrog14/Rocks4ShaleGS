@@ -17,26 +17,27 @@ class OrderHistory extends React.Component {
       <div>
         <h2>ORDER INFO</h2>
           <br/>
-            Status: {this.props.orderProducts.order.shippingStatus}
+          Status: {this.props.orderProducts.order.shippingStatus}
           <br/>
-            Order Placed: {this.props.orderProducts.order.createdAt}
+          Order Placed: {this.props.orderProducts.order.createdAt}
           <br/>
-            Products:
-            <ol>
-          {this.props.orderProducts.products.map(product => {
-            subtotal += (product.quantity * product.price)
-            return (
-              <li key={product.productId}>
-                <h4>
-                  <Link to={`/products/${product.productId}`}>
+          Products:
+          <ol>
+            {this.props.orderProducts.products.map(product => {
+              subtotal += (product.quantity * product.price)
+              return (
+                <li key={product.productId}>
+                  <h4>
+                    <Link to={`/products/${product.productId}`}>
                     <h2>{product.name}</h2>
-                  </Link>
-                Quantity: {product.quantity}
-                  <br/>
-                Price: ${Number.parseFloat(product.price/100).toFixed(2)}
-                </h4>
-              </li>
-            )})}
+                    </Link>
+                    Quantity: {product.quantity}
+                    <br/>
+                    Price: ${Number.parseFloat(product.price/100).toFixed(2)}
+                  </h4>
+                </li>
+              )
+            })}
           </ol>
           Subtotal: ${Number.parseFloat(subtotal/100).toFixed(2)}
       </div> :

@@ -39,22 +39,12 @@ class CreateReview extends Component {
             <label>Stars</label>
             <select className="inputElem" name="stars" onChange={this.handleChange} value={this.state.stars}>
               <option value="--">--</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value={5}>5</option>
+              {new Array(5).fill(0).map((val, idx) => <option key={idx} value={`${idx+1}`}>{idx+1}</option>)}
             </select>
             <br/>
             <div className="inputElem">
               <label>Comments</label>
-              <input
-                type="text"
-                name="comments"
-                placeholder="Comments.."
-                onChange={this.handleChange}
-                value={this.state.comments}
-              />
+              <input type="text" name="comments" placeholder="Comments.." onChange={this.handleChange} value={this.state.comments}/>
             </div>
           </div>
           <br/>

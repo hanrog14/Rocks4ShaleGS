@@ -18,15 +18,12 @@ class OrderHistory extends React.Component {
               <br/>
               {this.props.prevOrders.map(order => (
                 <div key={order.id}>
-                Order #:
-                  <Link to={`/orders/${order.id}`}>{order.id}</Link>
-                  <br />
+                  <Link to={`/orders/${order.id}`}>{`Order #: ${order.id}`}</Link><br />
                 </div>
               ))}
           </div> :
-          <h1>No Order History</h1>
-          :
-          <h1>Loading..</h1>
+          <h1>No Order History</h1>:
+        <h1>Loading..</h1>
     )
   }
 }

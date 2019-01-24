@@ -6,6 +6,7 @@ import {
   updateItem
 } from '../../store/order'
 import Billing from './Shipping'
+import CartRow from './CartRow'
 
 class CartList extends React.Component {
   constructor(props) {
@@ -26,43 +27,6 @@ class CartList extends React.Component {
   render() {
     let productCartArray = this.props.products
     let cartTotal = 0;
-
-    let arrayRender = productCartArray.map((item, i) => {
-      cartTotal += item.price * this.props.quantity[i]
-      return (
-        <tr key={item.id}>
-          <td className="item-info">
-            <img src={item.pictureUrl} />
-            <div className="item-content">
-              <h4>Rocks For Shale</h4>
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <button type="button" onClick={() => this.props.removeItemToOrder(item.id)}>Remove Item</button>
-            </div>
-          </td>
-          <td>
-            ${Number.parseFloat(item.price/100).toFixed(2)}
-          </td>
-          <td>
-            <select
-              defaultValue={ Math.min(this.props.quantity[i], item.inventory) }
-              onChange={event => this.handleChange(event, i)}
-            >
-              {new Array(item.inventory > 10 ? 10 : item.inventory).fill().map((elem, idx) => {
-                return (
-                  <option key={idx} value={1 + idx}>
-                    {1 + idx}
-                  </option>
-                )
-              })}
-            </select>
-          </td>
-          <td>
-            ${Number.parseFloat((item.price*this.props.quantity[i])/100).toFixed(2)}
-          </td>
-        </tr>
-      )
-    })
     return (
       <div>
       { this.props.products.length ?
@@ -76,7 +40,16 @@ class CartList extends React.Component {
                 <th>Quantity</th>
                 <th>Subtotal</th>
               </tr>
-              {arrayRender}
+              {productCartArray.map((item, i) => {
+                cartTotal += item.price * this.props.quantity[i];
+                return <CartRow
+                  key={item.id} item={item}
+                  removeItemFromOrder={this.props.removeItemFromOrder}
+                  quantity={this.props.quantity[i]}
+                  i={i}
+                  handleChange={this.handleChange}
+                />
+              })}
             </tbody>
           </table>
           <h3>Subtotal: ${Number.parseFloat(cartTotal/100).toFixed(2)}</h3>
@@ -95,7 +68,7 @@ const mapStatetoProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  removeItemToOrder: id => dispatch(removeItemToOrder(id)),
+  removeItemFromOrder: id => dispatch(removeItemToOrder(id)),
   getWholeCart: () => dispatch(getWholeCart()),
   updateItem: (cart, products) => dispatch(updateItem(cart, products))
 })

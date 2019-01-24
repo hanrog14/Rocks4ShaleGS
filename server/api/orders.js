@@ -15,6 +15,7 @@ const getCartIndex = (id, cart) => {
   return -1
 }
 
+// create an order after user checks out and decrease product inventory - process stripe charges
 router.post('/create', async (req, res, next) => {
   try {
     let userId = (req.user) ? req.user.id : null
@@ -22,11 +23,9 @@ router.post('/create', async (req, res, next) => {
     let sum = 0;
     await Promise.all(
       req.session.cart.map((prod, i) => {
-        Product.update({
-            inventory: prod.inventory - req.session.quantity[i]
-          }, {
-            where: { id: prod.id }
-          }
+        Product.update(
+          {inventory: prod.inventory - req.session.quantity[i]},
+          {where: { id: prod.id }}
         )
         OrderProduct.create({
           productId: prod.id,
@@ -40,12 +39,7 @@ router.post('/create', async (req, res, next) => {
     )
     const token = req.body.id;
 
-    stripe.charges.create({
-        amount: sum,
-        currency: 'usd',
-        description: 'Items purchased',
-        source: token
-    })
+    stripe.charges.create({amount: sum, currency: 'usd', description: 'Items purchased', source: token})
 
     req.session.cart = [];
     req.session.quantity = [];
@@ -53,6 +47,7 @@ router.post('/create', async (req, res, next) => {
   } catch (err) {next(err)}
 })
 
+// return cart contents on current session
 router.get('/cart', async (req, res, next) => {
   try{
     if (!req.session.cart) {
@@ -65,13 +60,10 @@ router.get('/cart', async (req, res, next) => {
   }
 })
 
+// return order history for all users
 router.get('/history', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      where: {
-        isCart: false
-      }
-    })
+    const orders = await Order.findAll({where: {isCart: false}})
     res.json(orders)
   }
   catch(err) {
@@ -79,6 +71,7 @@ router.get('/history', async (req, res, next) => {
   }
 })
 
+// remove item from cart
 router.delete('/remove/:id', (req, res) => {
   const idx = getCartIndex(req.params.id, req.session.cart)
   req.session.cart.splice(idx, 1)
@@ -86,6 +79,7 @@ router.delete('/remove/:id', (req, res) => {
   res.json({cart: req.session.cart, quantity: req.session.quantity})
 })
 
+// add item to cart
 router.get('/add/:id', async (req, res, next) => {
   try {
     if (!req.session.cart) {
@@ -107,11 +101,10 @@ router.get('/add/:id', async (req, res, next) => {
   }
 })
 
+// get order by id
 router.get('/:id', async (req, res, next) => {
   try {
-    const products = await OrderProduct.findAll({
-      where: {orderId: req.params.id}
-    })
+    const products = await OrderProduct.findAll({where: {orderId: req.params.id}})
     const order = await Order.findById(req.params.id)
     if (req.user && ((order.userId === req.user.id) || req.user.adminStatus)) {
       res.json({products, order})
@@ -123,14 +116,11 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// get order by user id
 router.get('/history/:id', async (req, res, next) => {
   try {
     if (req.user && (+req.params.id === +req.user.id)) {
-      const orders = await Order.findAll({
-        where: {
-          userId: req.params.id
-        }
-      })
+      const orders = await Order.findAll({where: {userId: req.params.id}})
       res.json(orders)
     } else {
       res.send([])
@@ -140,6 +130,7 @@ router.get('/history/:id', async (req, res, next) => {
   }
 })
 
+// update cart with values given
 router.put('/update', (req, res) => {
   req.session.cart = req.body.cart
   req.session.quantity = req.body.quantity

@@ -37,6 +37,7 @@ export const fetchProducts = () => {
     }
   }
 }
+
 export const getSelectedProduct = (id) => async dispatch => {
   try {
     const res = await axios.get(`/api/products/${id}`)
@@ -45,6 +46,7 @@ export const getSelectedProduct = (id) => async dispatch => {
     console.error(err)
   }
 }
+
 export const getNewProduct = (productObj) => {
   return async (dispatch) => {
     try {

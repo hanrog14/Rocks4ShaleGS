@@ -17,16 +17,12 @@ export default class CreateUpdateProduct extends Component {
   }
 
   componentDidMount(){
-    setTimeout(() => this.setState({
-      loading: false
-    }), 0);
+    setTimeout(() => this.setState({loading: false}), 0);
   }
 
   handleChange(event) {
     let newObjProps = { ...this.state.objectProps, [event.target.name]: event.target.value }
-    this.setState({
-      objectProps: newObjProps
-    })
+    this.setState({objectProps: newObjProps})
   }
 
   handleSubmit(event) {
@@ -43,9 +39,8 @@ export default class CreateUpdateProduct extends Component {
     const isAdmin = this.props.user.adminStatus
     return (
       <div className="order-history">
-        { this.state.loading ? <h1>Loading...</h1>:
-           isAdmin ?
-
+        { this.state.loading ? <h1>Loading...</h1> :
+          isAdmin ?
           <form onSubmit={this.handleSubmit}>
             <div>
               <h1>Please Fill out the Product Form</h1>

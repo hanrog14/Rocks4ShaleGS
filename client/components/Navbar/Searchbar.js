@@ -26,9 +26,7 @@ export default class Searchbar extends React.Component {
       <div>
         <form onSubmit={this.submitHandler} >
           <input type="text" name="search-bar" placeholder="Search.." value={this.state.currSearch} onChange={this.changeHandler} />
-          <button type="submit" value="submit" >
-            &#128269;
-          </button>
+          <button type="submit" value="submit" >&#128269;</button>
         </form>
       </div>
     )

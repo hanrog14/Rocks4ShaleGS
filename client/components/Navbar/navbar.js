@@ -21,30 +21,14 @@ const Navbar = ({ handleClick, isLoggedIn, userId }) => {
             <li className='searchbar'> <Searchbar /> </li>
           </ul>
         </div>
-        {isLoggedIn ? (
-
-          <div className="login">
-            <ul>
-              <li className='user-nav'><Link to="/cart">🛒</Link></li>
-              <li className='user-nav'><Link to="/home">Home</Link></li>
-              <li className='user-nav'><Link to={`/history/${userId}`}>Order History</Link></li>
-              <li className='user-nav'><a href="#" onClick={handleClick}>
-                Logout
-            </a></li>
-            </ul>
-          </div>
-
-
-        ) : (
-            <div className="login">
-              <ul>
-                <li className='user-nav'><Link to="/cart">🛒</Link></li>
-                <li className='user-nav'><Link to="/login">Login</Link></li>
-                <li className='user-nav'><Link to="/signup">Sign Up</Link></li>
-              </ul>
-            </div>
-          )}
-
+        <div className="login">
+          <ul>
+            <li className='user-nav'><Link to="/cart">🛒</Link></li>
+            <li className='user-nav'><Link to={isLoggedIn ? "/home" : "/login"}>{isLoggedIn ? "Home" : "Login"}</Link></li>
+            <li className='user-nav'><Link to={isLoggedIn ? `/history/${userId}` : "/signup"}>{isLoggedIn ? 'Order History' : 'Sign Up'}</Link></li>
+            {isLoggedIn && <li className='user-nav'><a href="#" onClick={handleClick}>Logout</a></li>}
+          </ul>
+        </div>
       </nav>
     </div>
   )

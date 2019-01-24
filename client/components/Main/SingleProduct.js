@@ -16,6 +16,7 @@ class SingleProduct extends Component {
     this.state = {
       invalidInput: false
     }
+    this.addItemToCart = this.addItemToCart.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,11 @@ class SingleProduct extends Component {
     } else {
       this.setState({invalidInput: true})
     }
+  }
+
+  addItemToCart() {
+    this.props.addToCart(this.props.product.id);
+    notify.show(`${this.props.product.name} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})
   }
 
   render() {
@@ -36,23 +42,16 @@ class SingleProduct extends Component {
             {this.props.product.id ? (
               <div className="">
                 <div className="single-product-container">
-                <div className='single-product-image'>
-                  <img
-                    className="single-image"
-                    src={this.props.product.pictureUrl}
-                  />
+                  <div className='single-product-image'>
+                    <img className="single-image" src={this.props.product.pictureUrl}/>
                   </div>
                   <div className="single-product-text">
-                  <h3>{this.props.product.name}</h3>
-                  <p>{this.props.product.description}</p>
-                  <p>Price: ${Number.parseFloat(this.props.product.price/100).toFixed(2)}</p>
-                  <button
-                    type="button"
-                    className="add-to-cart"
-                    onClick={() => {this.props.addToCart(this.props.product.id);notify.show(`${this.props.product.name} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})}}
-                  >
-                    Add To Cart
-                  </button>
+                    <h3>{this.props.product.name}</h3>
+                    <p>{this.props.product.description}</p>
+                    <p>Price: ${Number.parseFloat(this.props.product.price/100).toFixed(2)}</p>
+                    <button type="button" className="add-to-cart" onClick={this.addItemToCart}>
+                      Add To Cart
+                    </button>
                   </div>
                 </div>
                 <br />

@@ -6,7 +6,7 @@ _Live site: https://rocks-4-shale.herokuapp.com_
 
 ## Developers 
 - [Hannah Barton](https://github.com/hannbarton) 
-- [Hannah Rogers](https://github.com/hanrog14)
+- [Hannah Rogers](https://github.com/hrogers14)
 - [Jolene Langlinais](https://github.com/irmerk)
 - [Seori Sachs](https://github.com/msbeethoven)
 
@@ -27,8 +27,9 @@ Made with:
 - Express 
 - Sequelize 
 - Chai/Mocha
-- Postgresql
+- PostgreSQL
 - React 
 - Redux
 - HTML/CSS
-- Stripe  
+- Stripe
+- Google OAuth
