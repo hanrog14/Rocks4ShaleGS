@@ -17,11 +17,11 @@ const defaultState = {
 
 const updateCart = order => ({type: UPDATE_CART, order})
 const gotPrevOrders = orders => ({type: UPDATE_PREV_ORDERS, orders})
-const getCurrentOrder = products => ({type: GET_ORDER, products})
+const gotCurrentOrder = products => ({type: GET_ORDER, products})
 
 export const getWholeCart = () => async dispatch => {
   try {
-    const res = await axios.get('/api/orders/cart')
+    const res = await axios.get('/api/cart')
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
@@ -30,28 +30,25 @@ export const getWholeCart = () => async dispatch => {
 
 export const addItemToOrder = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/orders/add/${id}`)
+    const res = await axios.post('/api/cart/add', {id})
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const removeItemToOrder = id => async dispatch => {
+export const removeItemFromOrder = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/orders/remove/${id}`)
+    const res = await axios.delete(`/api/cart/remove/${id}`)
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const updateItem = (products, quantity) => async dispatch => {
+export const updateItem = (cart, quantity) => async dispatch => {
   try {
-    const res = await axios.put('/api/orders/update', {
-      cart: products,
-      quantity: quantity
-    })
+    const res = await axios.put('/api/cart/update', {cart, quantity})
     dispatch(updateCart(res.data))
   } catch (err) {
     console.error(err)
@@ -90,7 +87,7 @@ export const fetchOrderHistory = id => async dispatch => {
 export const fetchOrder = id => async dispatch => {
   try {
     const res = await axios.get(`/api/orders/${id}`)
-    dispatch(getCurrentOrder(res.data))
+    dispatch(gotCurrentOrder(res.data))
   } catch (err) {
     console.error(err)
   }

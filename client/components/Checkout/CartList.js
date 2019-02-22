@@ -1,11 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  removeItemToOrder,
-  getWholeCart,
-  updateItem
-} from '../../store/order'
-import Billing from './Shipping'
+import {removeItemFromOrder, getWholeCart, updateItem} from '../../store/order'
+import Billing from './Billing'
 import CartRow from './CartRow'
 
 class CartList extends React.Component {
@@ -68,7 +64,7 @@ const mapStatetoProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  removeItemFromOrder: id => dispatch(removeItemToOrder(id)),
+  removeItemFromOrder: id => dispatch(removeItemFromOrder(id)),
   getWholeCart: () => dispatch(getWholeCart()),
   updateItem: (cart, products) => dispatch(updateItem(cart, products))
 })

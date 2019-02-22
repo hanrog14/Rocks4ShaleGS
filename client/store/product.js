@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const SET_PRODUCTS = 'SET_PRODUCTS'
-const GET_PRODUCT_SINGLE = 'GET_PRODUCT_SINGLE'
+const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 
@@ -17,20 +17,19 @@ const defaultProduct = { products: [], selectedProduct: {} }
 /**
  * ACTION CREATORS
  */
-const setProducts = (products) => ({type: SET_PRODUCTS, products})
-const getProduct = product => ({type: GET_PRODUCT_SINGLE, product})
+const gotProducts = (products) => ({type: SET_PRODUCTS, products})
+const gotSingleProduct = product => ({type: SET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const gotUpdatedProduct = product => ({type: UPDATE_PRODUCT, product})
 
 /**
  * THUNK CREATORS
  */
-
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
       const res = await axios.get('/api/products')
-      dispatch(setProducts(res.data))
+      dispatch(gotProducts(res.data))
     }
     catch(err) {
       console.error(err)
@@ -41,7 +40,7 @@ export const fetchProducts = () => {
 export const getSelectedProduct = (id) => async dispatch => {
   try {
     const res = await axios.get(`/api/products/${id}`)
-    dispatch(getProduct(res.data))
+    dispatch(gotSingleProduct(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -88,7 +87,7 @@ export const addReview = (review, productId) => {
  */
 export default function(state = defaultProduct, action) {
   switch (action.type) {
-    case GET_PRODUCT_SINGLE:
+    case SET_SINGLE_PRODUCT:
       return { ...state, selectedProduct: action.product }
     case ADD_PRODUCT:
       return { ...state, products: [...state.products, action.product] }

@@ -20,10 +20,10 @@ class ProductList extends React.Component {
   }
 
   clickFunc(productId, productName) {
-    this.props.addToCart(productId); notify.show(`${productName} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})
+    this.props.addToCart(productId);
+    notify.show(`${productName} was added to cart!`, 'custom', 1000, {background: '#00994d', text: "#FFFFFF"})
   }
 
-  //eslint-disable-next-line
   render() {
     const category = this.props.match.params.category
     const name = this.props.match.params.name
@@ -34,32 +34,34 @@ class ProductList extends React.Component {
     } else if (category !== 'all') {
       products = this.props.products.filter(prod => prod.category === category)
     }
-    return (possibleCategories.includes(category) || name) && products.length ? (
-      <div className="all-product-outer-wrapper">
-      <Notifications />
-      {category && <h3>{`${category.toUpperCase()} PRODUCTS`}</h3>}
-      <div className="all-product-container">
-          {this.props.isAdmin &&
-            <div>
-              <Link to="../../products/create">
-                <button type="submit" className="create-new-product">Create New Product</button>
-              </Link>
-              <Link to="/tasks">
-                <button type="submit" className="admin-orders-view">Admin Orders View</button>
-              </Link>
-            </div>
-          }
+    return (
+      (possibleCategories.includes(category) || name) && products.length ? (
+        <div className="all-product-outer-wrapper">
+        <Notifications />
+        {category && <h3>{`${category.toUpperCase()} PRODUCTS`}</h3>}
+        <div className="all-product-container">
+            {this.props.isAdmin &&
+              <div>
+                <Link to="../../products/create">
+                  <button type="submit" className="create-new-product">Create New Product</button>
+                </Link>
+                <Link to="/tasks">
+                  <button type="submit" className="admin-orders-view">Admin Orders View</button>
+                </Link>
+              </div>
+            }
 
-          <div className="row">
-            <br />
-            {products.map(eachProduct => (
-              <EachProduct key={eachProduct.id} product={eachProduct} clickFunc={this.clickFunc} isAdmin={this.props.isAdmin}/>
-            ))}
+            <div className="row">
+              <br />
+              {products.map(eachProduct => (
+                <EachProduct key={eachProduct.id} product={eachProduct} clickFunc={this.clickFunc} isAdmin={this.props.isAdmin}/>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    ) : (
-      <NotFoundComponent />
+      ) : (
+        <NotFoundComponent />
+      )
     )
   }
 }

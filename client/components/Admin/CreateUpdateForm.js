@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import {getNewProduct, updateProduct} from '../../store/product'
 
 const checkRequired = (object) => {
   return object.name && object.description && object.price && object.inventory && object.category && object.pictureUrl
 }
 
-export default class CreateUpdateProduct extends Component {
+class CreateUpdateProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
       objectProps: this.props.location.state || {},
-      errMessage: null,
-      loading: true
+      errMessage: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentDidMount(){
-    setTimeout(() => this.setState({loading: false}), 0);
   }
 
   handleChange(event) {
@@ -39,8 +36,7 @@ export default class CreateUpdateProduct extends Component {
     const isAdmin = this.props.user.adminStatus
     return (
       <div className="order-history">
-        { this.state.loading ? <h1>Loading...</h1> :
-          isAdmin ?
+        {isAdmin ?
           <form onSubmit={this.handleSubmit}>
             <div>
               <h1>Please Fill out the Product Form</h1>
@@ -109,9 +105,31 @@ export default class CreateUpdateProduct extends Component {
               <button type="submit">Submit</button>
               {this.state.errMessage && <h4 id="errMessage">{this.state.errMessage}</h4>}
             </div>
-          </form> : <h1>Forbidden Content</h1>
+          </form> :
+          <h1>Forbidden Content</h1>
         }
       </div>
     )
   }
 }
+
+const mapCreateProductDispatch = (dispatch, ownProps) => {
+  return {
+    submitChange: (product) => dispatch(getNewProduct(product, ownProps.history))
+  }
+}
+
+const mapUpdateProductDispatch = (dispatch, ownProps) => {
+  return {
+    submitChange: (product, id) => dispatch(updateProduct(product, id, ownProps.history))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+   user: state.user
+  }
+}
+
+export const CreateProduct = connect(mapStateToProps, mapCreateProductDispatch)(CreateUpdateProduct)
+export const UpdateProduct = connect(mapStateToProps, mapUpdateProductDispatch)(CreateUpdateProduct)

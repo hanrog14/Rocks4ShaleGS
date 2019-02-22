@@ -25,7 +25,10 @@ class CreateReview extends Component {
     if (this.state.stars === '') {
       this.setState({errMessage: 'Please fill in your star rating'})
     } else {
-      this.props.submitChange({stars: this.state.stars, comments: this.state.comments}, this.props.match.params.id);
+      this.props.submitChange(
+        {stars: this.state.stars, comments: this.state.comments},
+        this.props.match.params.id
+      );
       this.setState({stars: '', comments: '', errMessage: null});
     }
   }

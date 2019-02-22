@@ -23,9 +23,15 @@ const Navbar = ({ handleClick, isLoggedIn, userId }) => {
         </div>
         <div className="login">
           <ul>
-            <li className='user-nav'><Link to="/cart">🛒</Link></li>
-            <li className='user-nav'><Link to={isLoggedIn ? "/home" : "/login"}>{isLoggedIn ? "Home" : "Login"}</Link></li>
-            <li className='user-nav'><Link to={isLoggedIn ? `/history/${userId}` : "/signup"}>{isLoggedIn ? 'Order History' : 'Sign Up'}</Link></li>
+            <li className='user-nav'>
+              <Link to="/cart">🛒</Link>
+            </li>
+            <li className='user-nav'>
+              <Link to={isLoggedIn ? "/home" : "/login"}>{isLoggedIn ? "Home" : "Login"}</Link>
+            </li>
+            <li className='user-nav'>
+              <Link to={isLoggedIn ? `/history/${userId}` : "/signup"}>{isLoggedIn ? 'Order History' : 'Sign Up'}</Link>
+            </li>
             {isLoggedIn && <li className='user-nav'><a href="#" onClick={handleClick}>Logout</a></li>}
           </ul>
         </div>

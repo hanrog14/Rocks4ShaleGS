@@ -61,8 +61,8 @@ class SingleProduct extends Component {
                 </div>
                 {this.props.product.reviews.map(review => (
                   <div className="reviews" key={review.id}>
-                    Stars: {review.stars} <br />Comments: {review.comments}
-                    <br />
+                    Stars: {review.stars} <br />
+                    Comments: {review.comments} <br />
                   </div>
                 ))}
               </div>

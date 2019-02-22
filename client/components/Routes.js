@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleProduct, ProductList, CartList, CreateProduct, UpdateProduct, CreateReview, Confirmation, OrderHistory, SingleOrder, AdminOrdersView} from './components'
-import {me} from './store'
+import {Login, Signup, CartList, AdminOrdersView, Confirmation, OrderHistory,
+  SingleOrder, CreateProduct, CreateReview, UpdateProduct, ProductList,
+  SingleProduct, UserHome} from './index'
+import {me} from '../store'
 
 /**
  * COMPONENT
@@ -29,13 +31,8 @@ class Routes extends Component {
         <Route path="/products/:id/review" component={CreateReview} />
         <Route path="/products/:id/update" component={UpdateProduct} />
         <Route path='/products/category/:category' component={ProductList} />
-        <Route path='/products/name/:name' component={ProductList} />
         <Route path="/products/:id" component={SingleProduct} />
-        {isLoggedIn && (
-          <Switch>
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
+        {isLoggedIn && <Route path="/home" component={UserHome} />}
         <Redirect to='/products/category/all'/>
       </Switch>
     )
